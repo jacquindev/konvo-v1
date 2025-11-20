@@ -201,7 +201,6 @@
   }
   button:not([disabled]),
   [role="button"]:not([disabled]) {
-    @apply hover:scale-102 transition-transform duration-300;
     cursor: pointer;
   }
 }
