@@ -1,6 +1,9 @@
+import { ClerkClientProvider } from "@/providers/clerk-provider";
+import { ConvexClientProvider } from "@/providers/convex-provider";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
 
+import { ThemeProvider } from "@repo/ui/components/theme/provider";
 import "@repo/ui/globals.css";
 
 const fontSans = Inter({
@@ -28,11 +31,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          enableColorScheme
+          disableTransitionOnChange
+        >
+          <ClerkClientProvider>
+            <ConvexClientProvider>{children}</ConvexClientProvider>
+          </ClerkClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

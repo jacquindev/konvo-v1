@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "convex": "catalog:convex",
     "next": "catalog:",
     "react": "catalog:react19",
     "react-dom": "catalog:react19"
