@@ -13,6 +13,7 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
+    "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:react19",
     "react-dom": "catalog:react19"

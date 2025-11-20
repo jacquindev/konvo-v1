@@ -13,7 +13,7 @@ export const LoadingView = () => {
         <Spinner className="size-8 text-muted-foreground" />
       </EmptyMedia>
       <EmptyContent>
-        <EmptyTitle className="text-muted-foreground animate-puls text-lg">
+        <EmptyTitle className="text-muted-foreground animate-puls text-xl">
           Loading...
         </EmptyTitle>
       </EmptyContent>

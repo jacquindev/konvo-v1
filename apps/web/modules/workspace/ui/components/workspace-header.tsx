@@ -1,0 +1,30 @@
+import type { LucideIcon } from "lucide-react";
+
+interface WorkspaceHeaderProps {
+  icon?: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export const WorkspaceHeader = ({
+  icon: Icon,
+  title,
+  description,
+}: WorkspaceHeaderProps) => {
+  return (
+    <div className="flex flex-row justify-between items-center mb-8 w-full animate-in fade-in duration-300">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
+        <p className="text-base text-muted-foreground leading-relaxed wrap-break-word">
+          {description}
+        </p>
+      </div>
+
+      {Icon && (
+        <div className="size-12 shrink-0 flex items-center justify-center rounded-lg bg-linear-to-br from-primary/20 to-primary/80 dark:to-primary/60 drop-shadow-sm shadow-md">
+          <Icon className="size-7 dark:text-purple-300 text-purple-700 text-shadow-purple-400" />
+        </div>
+      )}
+    </div>
+  );
+};
