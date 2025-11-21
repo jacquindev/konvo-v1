@@ -1,11 +1,14 @@
 "use client";
 
-import { Button } from "@repo/ui/components/ui/button";
+import { WidgetView } from "@/modules/ui/views/widget-view";
+import { use } from "react";
 
-export default function Home() {
-  return (
-    <div>
-      <Button>apps/widget</Button>
-    </div>
-  );
+type Props = {
+  searchParams: Promise<{ organizationId: string }>;
+};
+
+export default function Home({ searchParams }: Props) {
+  const { organizationId } = use(searchParams);
+
+  return <WidgetView organizationId={organizationId} />;
 }

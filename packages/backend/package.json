@@ -16,6 +16,7 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@clerk/backend": "^2.23.0",
     "convex": "catalog:convex",
     "convex-helpers": "catalog:convex"
   }

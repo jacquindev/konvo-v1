@@ -8,13 +8,21 @@
  * @module
  */
 
+import type * as lib_clerkClient from "../lib/clerkClient.js";
+import type * as public_contactSessions from "../public/contactSessions.js";
+import type * as public_organizations from "../public/organizations.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  "lib/clerkClient": typeof lib_clerkClient;
+  "public/contactSessions": typeof public_contactSessions;
+  "public/organizations": typeof public_organizations;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.

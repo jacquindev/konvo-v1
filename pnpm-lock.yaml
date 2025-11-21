@@ -22,11 +22,14 @@ catalogs:
     eslint:
       specifier: ^9.39.1
       version: 9.39.1
+    jotai:
+      specifier: 2.15.1
+      version: 2.15.1
     lucide-react:
       specifier: 0.554.0
       version: 0.554.0
     motion:
-      specifier: ^12.23.24
+      specifier: 12.23.24
       version: 12.23.24
     next:
       specifier: ^16.0.1
@@ -75,43 +78,6 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/docs:
-    dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      next:
-        specifier: 'catalog:'
-        version: 16.0.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      react:
-        specifier: catalog:react19
-        version: 19.2.0
-      react-dom:
-        specifier: catalog:react19
-        version: 19.2.0(react@19.2.0)
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.19.1
-      '@types/react':
-        specifier: catalog:react19
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: catalog:react19
-        version: 19.2.2(@types/react@19.2.2)
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.1(jiti@2.6.1)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.2
-
   apps/web:
     dependencies:
       '@clerk/nextjs':
@@ -120,12 +86,18 @@ importers:
       '@clerk/themes':
         specifier: ^2.4.37
         version: 2.4.37(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@repo/backend':
+        specifier: workspace:*
+        version: link:../../packages/backend
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       convex:
         specifier: catalog:convex
         version: 1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      jotai:
+        specifier: 'catalog:'
+        version: 2.15.1(@types/react@19.2.2)(react@19.2.0)
       lucide-react:
         specifier: 'catalog:'
         version: 0.554.0(react@19.2.0)
@@ -166,12 +138,21 @@ importers:
 
   apps/widget:
     dependencies:
+      '@hookform/resolvers':
+        specifier: catalog:form
+        version: 5.2.2(react-hook-form@7.66.1(react@19.2.0))
+      '@repo/backend':
+        specifier: workspace:*
+        version: link:../../packages/backend
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       convex:
         specifier: catalog:convex
         version: 1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      jotai:
+        specifier: 'catalog:'
+        version: 2.15.1(@types/react@19.2.2)(react@19.2.0)
       lucide-react:
         specifier: 'catalog:'
         version: 0.554.0(react@19.2.0)
@@ -184,6 +165,12 @@ importers:
       react-dom:
         specifier: catalog:react19
         version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: catalog:form
+        version: 7.66.1(react@19.2.0)
+      zod:
+        specifier: catalog:form
+        version: 4.1.12
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -209,6 +196,9 @@ importers:
 
   packages/backend:
     dependencies:
+      '@clerk/backend':
+        specifier: ^2.23.0
+        version: 2.23.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       convex:
         specifier: catalog:convex
         version: 1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
@@ -317,6 +307,9 @@ importers:
       lucide-react:
         specifier: 'catalog:'
         version: 0.554.0(react@19.2.0)
+      motion:
+        specifier: 'catalog:'
+        version: 12.23.24(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -2115,6 +2108,24 @@ packages:
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
+
+  jotai@2.15.1:
+    resolution: {integrity: sha512-yHT1HAZ3ba2Q8wgaUQ+xfBzEtcS8ie687I8XVCBinfg4bNniyqLIN+utPXWKQE93LMF5fPbQSVRZqgpcN5yd6Q==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@babel/core': '>=7.0.0'
+      '@babel/template': '>=7.0.0'
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@types/react':
+        optional: true
+      react:
+        optional: true
 
   js-cookie@3.0.5:
     resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
@@ -4553,6 +4564,11 @@ snapshots:
       set-function-name: 2.0.2
 
   jiti@2.6.1: {}
+
+  jotai@2.15.1(@types/react@19.2.2)(react@19.2.0):
+    optionalDependencies:
+      '@types/react': 19.2.2
+      react: 19.2.0
 
   js-cookie@3.0.5: {}
 

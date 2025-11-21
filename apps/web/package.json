@@ -13,8 +13,10 @@
   "dependencies": {
     "@clerk/nextjs": "^6.35.2",
     "@clerk/themes": "^2.4.37",
+    "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
+    "jotai": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
     "next": "catalog:",
