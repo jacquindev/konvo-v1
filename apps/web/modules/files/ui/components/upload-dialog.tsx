@@ -54,7 +54,7 @@ export const UploadDialog = ({
         <div className="space-y-6 mt-4">
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="catagory">Category</FieldLabel>
+              <FieldLabel htmlFor="category">Category</FieldLabel>
               <Input
                 id="category"
                 placeholder="e.g., Documentation, Support, Product"
@@ -128,7 +128,9 @@ export const UploadDialog = ({
             <Button
               type="submit"
               disabled={
-                isUploading || uploadedFiles.length == 0 || !uploadForm.category
+                isUploading ||
+                uploadedFiles.length === 0 ||
+                !uploadForm.category
               }
               onClick={handleUpload}
             >

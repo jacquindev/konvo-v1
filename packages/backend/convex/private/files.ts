@@ -62,6 +62,14 @@ export const addFile = privateAction({
     if (!created) {
       console.debug("Entry already exists, skipping upload metadata");
       await ctx.storage.delete(storageId);
+
+      const existingEntry = await rag.getEntry(ctx, { entryId });
+      const existingStorageId = existingEntry?.metadata
+        ?.storageId as Id<"_storage">;
+      return {
+        url: await ctx.storage.getUrl(existingStorageId),
+        entryId,
+      };
     }
 
     return {
