@@ -14,7 +14,11 @@ catalog:
   typescript: 5.9.2
 
 catalogs:
+  ai:
+    '@ai-sdk/openai': ^2.0.71
+    ai: ^5.0.98
   convex:
+    '@convex-dev/agent': ^0.3.0
     convex: ^1.29.3
     convex-helpers: ^0.1.105
   form:

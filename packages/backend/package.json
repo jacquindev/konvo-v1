@@ -16,7 +16,10 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@ai-sdk/openai": "catalog:ai",
     "@clerk/backend": "^2.23.0",
+    "@convex-dev/agent": "catalog:convex",
+    "ai": "catalog:ai",
     "convex": "catalog:convex",
     "convex-helpers": "catalog:convex"
   }

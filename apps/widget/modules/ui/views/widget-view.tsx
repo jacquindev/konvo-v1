@@ -4,6 +4,7 @@ import { screenAtom } from "@/modules/lib/atoms";
 import { WidgetScreen } from "@/modules/lib/types";
 import { useAtomValue } from "jotai";
 import { WidgetAuthScreen } from "../screens/widget-auth-screen";
+import { WidgetChatScreen } from "../screens/widget-chat-screen";
 import { WidgetErrorScreen } from "../screens/widget-error-screen";
 import { WidgetLoadingScreen } from "../screens/widget-loading-screen";
 import { WidgetSelectionScreen } from "../screens/widget-selection-screen";
@@ -20,7 +21,7 @@ export const WidgetView = ({ organizationId }: WidgetViewProps) => {
       case "auth":
         return <WidgetAuthScreen />;
       case "chat":
-        return <p>TODO: Chat</p>;
+        return <WidgetChatScreen />;
       case "contact":
         return <p>TODO: Contact</p>;
       case "error":
