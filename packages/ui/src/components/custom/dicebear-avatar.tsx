@@ -44,7 +44,7 @@ export const DicebearAvatar = ({
     >
       <Avatar
         className={cn(
-          "border relative bg-indigo-800 dark:bg-indigo-900",
+          "border relative bg-indigo-800 dark:bg-indigo-900 size-full",
           className
         )}
       >
@@ -60,7 +60,7 @@ export const DicebearAvatar = ({
       {badgeImageUrl && (
         <div
           className={cn(
-            "shrink-0 absolute right-0.5 bottom-0.5 flex items-center justify-center overflow-hidden rounded-full border-2 bg-background border-background",
+            "shrink-0 absolute right-0 bottom-0 flex items-center justify-center overflow-hidden rounded-full border-2 bg-background border-background",
             badgeClassName
           )}
           style={{

@@ -10,7 +10,9 @@
 
 import type * as lib_clerkClient from "../lib/clerkClient.js";
 import type * as lib_openai from "../lib/openai.js";
+import type * as lib_privateUtils from "../lib/privateUtils.js";
 import type * as lib_publicUtils from "../lib/publicUtils.js";
+import type * as private_conversations from "../private/conversations.js";
 import type * as public_contactSessions from "../public/contactSessions.js";
 import type * as public_conversations from "../public/conversations.js";
 import type * as public_messages from "../public/messages.js";
@@ -28,7 +30,9 @@ import type {
 declare const fullApi: ApiFromModules<{
   "lib/clerkClient": typeof lib_clerkClient;
   "lib/openai": typeof lib_openai;
+  "lib/privateUtils": typeof lib_privateUtils;
   "lib/publicUtils": typeof lib_publicUtils;
+  "private/conversations": typeof private_conversations;
   "public/contactSessions": typeof public_contactSessions;
   "public/conversations": typeof public_conversations;
   "public/messages": typeof public_messages;

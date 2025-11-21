@@ -99,6 +99,9 @@ importers:
       '@clerk/themes':
         specifier: ^2.4.37
         version: 2.4.37(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@convex-dev/agent':
+        specifier: catalog:convex
+        version: 0.3.0(@ai-sdk/provider-utils@3.0.17(zod@4.1.12))(ai@5.0.98(zod@4.1.12))(convex-helpers@0.1.105(@standard-schema/spec@1.0.0)(convex@1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0))(react@19.2.0)(typescript@5.9.2)(zod@4.1.12))(convex@1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0))(react@19.2.0)
       '@repo/backend':
         specifier: workspace:*
         version: link:../../packages/backend
@@ -108,6 +111,9 @@ importers:
       convex:
         specifier: catalog:convex
         version: 1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      countries-and-timezones:
+        specifier: ^3.8.0
+        version: 3.8.0
       date-fns:
         specifier: 'catalog:'
         version: 4.1.0
@@ -2192,6 +2198,10 @@ packages:
 
   cose-base@2.2.0:
     resolution: {integrity: sha512-AzlgcsCbUMymkADOJtQm3wO9S3ltPfYOFD5033keQn9NJzIbtnZj+UdBJe7DYml/8TdbtHJW3j58SOnKhWY/5g==}
+
+  countries-and-timezones@3.8.0:
+    resolution: {integrity: sha512-+Ze9h5f4dQpUwbzTm0DEkiPiZyim9VHV4/mSnT4zNYJnrnfwsKjAZPtnp7J5VzejCDgySs+2SSc6MDdCnD43GA==}
+    engines: {node: '>=8.x', npm: '>=5.x'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -5745,6 +5755,8 @@ snapshots:
   cose-base@2.2.0:
     dependencies:
       layout-base: 2.0.1
+
+  countries-and-timezones@3.8.0: {}
 
   cross-spawn@7.0.6:
     dependencies:

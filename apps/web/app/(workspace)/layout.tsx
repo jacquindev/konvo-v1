@@ -1,6 +1,7 @@
 import { AuthGuard } from "@/modules/auth/ui/components/auth-guard";
 import { OrgGuard } from "@/modules/auth/ui/components/org-guard";
 import { WorkspaceLayout } from "@/modules/workspace/ui/layouts/workspace-layout";
+import { JotaiProvider } from "@/providers/jotai-provider";
 import { cookies } from "next/headers";
 import React from "react";
 
@@ -13,7 +14,11 @@ const Layout = async ({ children }: Props) => {
   return (
     <AuthGuard>
       <OrgGuard>
-        <WorkspaceLayout defaultOpen={defaultOpen}>{children}</WorkspaceLayout>
+        <JotaiProvider>
+          <WorkspaceLayout defaultOpen={defaultOpen}>
+            {children}
+          </WorkspaceLayout>
+        </JotaiProvider>
       </OrgGuard>
     </AuthGuard>
   );
