@@ -80,7 +80,7 @@ export const create = privateMutation({
     await saveMessage(ctx, components.agent, {
       threadId: conversation.threadId,
       userId: conversation.contactSessionId,
-      agentName: "Human Operator",
+      agentName: ctx.identity.name,
       message: {
         role: "assistant",
         content: args.prompt,
