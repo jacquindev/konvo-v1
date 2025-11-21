@@ -20,6 +20,7 @@ catalogs:
     ai: ^5.0.98
   convex:
     '@convex-dev/agent': ^0.3.0
+    '@convex-dev/rag': ^0.6.1
     convex: ^1.29.3
     convex-helpers: ^0.1.105
   form:

@@ -63,7 +63,11 @@ export const WorkspaceBreadcrumb = () => {
       </div>
 
       <div className="flex items-center gap-2 px-4">
-        <ThemeToggle className="size-7 text-muted-foreground hover:text-foreground bg-muted" />
+        <ThemeToggle
+          className="text-muted-foreground hover:text-foreground"
+          variant="ghost"
+          size="icon-sm"
+        />
       </div>
     </header>
   );
