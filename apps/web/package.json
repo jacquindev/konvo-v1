@@ -16,6 +16,7 @@
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
+    "date-fns": "catalog:",
     "jotai": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
