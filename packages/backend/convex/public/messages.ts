@@ -7,6 +7,7 @@ import { publicQuery } from "../lib/publicUtils";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 import { escalateConversation } from "../system/ai/tools/escalateConversation";
 import { resolveConversation } from "../system/ai/tools/resolveConversation";
+import { search } from "../system/ai/tools/search";
 
 export const create = action({
   args: {
@@ -62,6 +63,7 @@ export const create = action({
           tools: {
             resolveConversation,
             escalateConversation,
+            search,
           },
           experimental_telemetry: {
             isEnabled: true,

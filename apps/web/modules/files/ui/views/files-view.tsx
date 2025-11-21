@@ -66,7 +66,7 @@ export const FilesView = () => {
         file={selectedFile}
         onDeleted={handleFileDeleted}
       />
-      <div className="rounded-lg border bg-card py-8 mt-10">
+      <div className="rounded-lg border bg-card mt-10">
         <div className="flex items-center justify-end border-b px-6 py-4">
           <Button
             onClick={() => setUploadDialogOpen(true)}
@@ -168,7 +168,7 @@ export const FilesView = () => {
         </Table>
 
         {!isLoadingFirstPage && files.results.length > 0 && (
-          <div className="border-t p-2 bg-background">
+          <div className="border-t p-2 overflow-hidden bg-background rounded-b-lg">
             <InfiniteScrollTrigger
               ref={topElementRef}
               onLoadMore={onLoadMore}

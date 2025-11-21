@@ -1,3 +1,5 @@
+"use client";
+
 import { ConversationsView } from "@/modules/conversations/ui/views/conversations-view";
 
 const Page = () => {

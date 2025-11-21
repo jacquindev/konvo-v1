@@ -1,7 +1,5 @@
 "use client";
 
-import { INITIAL_NUM_ITEMS } from "@/lib/constants";
-import { api } from "@repo/backend/_generated/api";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Empty,
@@ -10,24 +8,10 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@repo/ui/components/ui/empty";
-import { usePaginatedQuery } from "convex/react";
 import { ArrowUpRightIcon, PackageOpenIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export const ConversationsView = () => {
-  const router = useRouter();
-
-  const conversations = usePaginatedQuery(
-    api.private.conversations.getMany,
-    { status: undefined },
-    { initialNumItems: INITIAL_NUM_ITEMS }
-  );
-
-  if (conversations.results.length > 0) {
-    router.push(`/conversations/${conversations.results[0]?._id}`);
-  }
-
   return (
     <div className="flex flex-col flex-1 w-full h-screen items-center justify-center p-12">
       <Empty className="from-muted/50 to-background bg-linear-to-b from-30% rounded-2xl w-full">
