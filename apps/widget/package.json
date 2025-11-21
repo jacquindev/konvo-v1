@@ -11,12 +11,17 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "catalog:form",
+    "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
+    "jotai": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19"
+    "react-dom": "catalog:react19",
+    "react-hook-form": "catalog:form",
+    "zod": "catalog:form"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
