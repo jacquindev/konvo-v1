@@ -1,11 +1,11 @@
 import type { MessageDoc } from "@convex-dev/agent";
 import { paginationOptsValidator, type PaginationResult } from "convex/server";
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 import type { Doc } from "../_generated/dataModel";
-import { identityQuery } from "../lib/privateUtils";
+import { privateMutation, privateQuery } from "../lib/privateUtils";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 
-export const getMany = identityQuery({
+export const getMany = privateQuery({
   args: {
     paginationOpts: paginationOptsValidator,
     status: v.optional(
@@ -72,5 +72,72 @@ export const getMany = identityQuery({
       ...conversations,
       page: validConversations,
     };
+  },
+});
+
+export const getOne = privateQuery({
+  args: {
+    conversationId: v.id("conversations"),
+  },
+  async handler(ctx, args) {
+    const conversation = await ctx.db.get(args.conversationId);
+
+    if (!conversation) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Conversation not found",
+      });
+    }
+
+    if (conversation.organizationId !== ctx.orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Invalid organization ID",
+      });
+    }
+
+    const contactSession = await ctx.db.get(conversation.contactSessionId);
+
+    if (!contactSession) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Contact session not found",
+      });
+    }
+
+    return {
+      ...conversation,
+      contactSession,
+    };
+  },
+});
+
+export const updateStatus = privateMutation({
+  args: {
+    conversationId: v.id("conversations"),
+    status: v.union(
+      v.literal("unresolved"),
+      v.literal("escalated"),
+      v.literal("resolved")
+    ),
+  },
+  async handler(ctx, args) {
+    const conversation = await ctx.db.get(args.conversationId);
+
+    if (!conversation) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Conversation not found",
+      });
+    }
+
+    if (conversation.organizationId !== ctx.orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Invalid organization ID",
+      });
+    }
+
+    await ctx.db.patch(args.conversationId, { status: args.status });
   },
 });

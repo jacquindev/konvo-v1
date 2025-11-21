@@ -155,7 +155,7 @@ export const ConversationsPanel = () => {
                         )}
                       </span>
                     </div>
-                    <div className="mt-1 flex items-center justify-between gap-3">
+                    <div className="mt-2 flex items-center justify-between gap-3">
                       <div className="flex w-0 grow items-center gap-1">
                         {isLastMessageFromOperator && (
                           <CornerUpLeftIcon className="size-3 shrink-0 text-muted-foreground" />
@@ -173,7 +173,7 @@ export const ConversationsPanel = () => {
                       <ConversationStatusIcon
                         status={conversation.status}
                         className={cn(
-                          "group-hover:opacity-100",
+                          "group-hover:opacity-100 size-6",
                           isActive ? "opacity-100" : "opacity-70"
                         )}
                       />

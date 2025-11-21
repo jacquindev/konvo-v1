@@ -10,14 +10,17 @@ export const statusConfig = {
   resolved: {
     icon: CheckIcon,
     bgColor: "bg-linear-to-br from-green-500 to-green-900",
+    text: "Mark as 'Unresolved'",
   },
   unresolved: {
     icon: ArrowRightIcon,
     bgColor: "bg-linear-to-br from-red-500 to-red-900",
+    text: "Mark as 'Escalated'",
   },
   escalated: {
     icon: ArrowUpIcon,
     bgColor: "bg-linear-to-br from-amber-500 to-amber-900",
+    text: "Mark as 'Resolved'",
   },
 } as const;
 

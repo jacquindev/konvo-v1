@@ -14,6 +14,7 @@
     "@clerk/nextjs": "^6.35.2",
     "@clerk/themes": "^2.4.37",
     "@convex-dev/agent": "catalog:convex",
+    "@hookform/resolvers": "catalog:form",
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
@@ -24,7 +25,10 @@
     "motion": "catalog:",
     "next": "catalog:",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19"
+    "react-dom": "catalog:react19",
+    "react-hook-form": "catalog:form",
+    "sonner": "catalog:",
+    "zod": "catalog:form"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

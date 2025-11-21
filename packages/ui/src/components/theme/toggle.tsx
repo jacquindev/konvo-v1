@@ -14,17 +14,30 @@ import { useTheme } from "next-themes";
 interface ThemeToggleProps {
   className?: string;
   iconClassName?: string;
+  size?: "default" | "lg" | "sm" | "icon" | "icon-lg" | "icon-sm" | null;
+  variant?:
+    | "default"
+    | "outline"
+    | "destructive"
+    | "ghost"
+    | "secondary"
+    | null;
 }
 
-export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
+export function ThemeToggle({
+  className,
+  iconClassName,
+  size = "icon",
+  variant = "outline",
+}: ThemeToggleProps) {
   const { setTheme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
-          size="icon"
+          variant={variant}
+          size={size}
           className={cn("group", className)}
         >
           <Sun

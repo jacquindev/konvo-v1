@@ -1,7 +1,16 @@
-type Props = {};
+import { ConversationView } from "@/modules/conversations/ui/views/conversation-view";
+import type { Id } from "@repo/backend/_generated/dataModel";
 
-const Page = (props: Props) => {
-  return <div>Page</div>;
+type Props = {
+  params: Promise<{ conversationId: string }>;
+};
+
+const Page = async ({ params }: Props) => {
+  const { conversationId } = await params;
+
+  return (
+    <ConversationView conversationId={conversationId as Id<"conversations">} />
+  );
 };
 
 export default Page;

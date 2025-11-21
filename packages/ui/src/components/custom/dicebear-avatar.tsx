@@ -35,6 +35,7 @@ export const DicebearAvatar = ({
 
     return avatar.toDataUri();
   }, [imageUrl, seed, size]);
+
   const badgeSize = Math.round(size * 0.5);
 
   return (
@@ -44,7 +45,7 @@ export const DicebearAvatar = ({
     >
       <Avatar
         className={cn(
-          "border relative bg-indigo-800 dark:bg-indigo-900 size-full",
+          "border rounded-full relative bg-card dark:bg-indigo-900 size-full",
           className
         )}
       >
@@ -53,7 +54,7 @@ export const DicebearAvatar = ({
           alt="avatar"
           width={size}
           height={size}
-          className="size-full object-cover shrink-0"
+          className="min-w-0 size-full object-cover"
         />
       </Avatar>
 

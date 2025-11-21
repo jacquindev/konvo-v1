@@ -21,6 +21,7 @@
     "@convex-dev/agent": "catalog:convex",
     "ai": "catalog:ai",
     "convex": "catalog:convex",
-    "convex-helpers": "catalog:convex"
+    "convex-helpers": "catalog:convex",
+    "zod": "catalog:form"
   }
 }
