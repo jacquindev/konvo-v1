@@ -13,9 +13,11 @@
   "dependencies": {
     "@clerk/nextjs": "^6.35.2",
     "@clerk/themes": "^2.4.37",
+    "@convex-dev/agent": "catalog:convex",
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "convex": "catalog:convex",
+    "countries-and-timezones": "^3.8.0",
     "date-fns": "catalog:",
     "jotai": "catalog:",
     "lucide-react": "catalog:",
