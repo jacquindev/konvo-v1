@@ -6,6 +6,7 @@
 @import "tw-animate-css";
 
 @import "./clerk-theme.css";
+@source "../../node_modules/streamdown/dist/index.js";
 
 @custom-variant dark (&:is(.dark *));
 
