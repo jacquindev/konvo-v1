@@ -11,8 +11,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 
 export const useInboxScreen = () => {
   const setScreen = useSetAtom(screenAtom);
-  const setConversationaId = useSetAtom(conversationIdAtom);
-
+  const setConversationId = useSetAtom(conversationIdAtom);
   const onBack = () => {
     setScreen("selection");
   };
@@ -29,7 +28,7 @@ export const useInboxScreen = () => {
   );
 
   const onSelect = (id: Id<"conversations">) => {
-    setConversationaId(id);
+    setConversationId(id);
     setScreen("chat");
   };
 

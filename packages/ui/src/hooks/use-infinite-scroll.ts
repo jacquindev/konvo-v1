@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-interface UseInifiniteScrollProps {
+interface UseInfiniteScrollProps {
   status: "LoadingFirstPage" | "CanLoadMore" | "LoadingMore" | "Exhausted";
   loadMore: (numItems: number) => void;
   loadSize?: number;
@@ -12,7 +12,7 @@ export const useInfiniteScroll = ({
   loadMore,
   loadSize = 10,
   observerEnabled = true,
-}: UseInifiniteScrollProps) => {
+}: UseInfiniteScrollProps) => {
   const topElementRef = useRef<HTMLDivElement>(null);
 
   const onLoadMore = useCallback(() => {

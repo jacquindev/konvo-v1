@@ -27,7 +27,7 @@ export const WidgetInboxScreen = () => {
   return (
     <>
       <WidgetHeader className="h-16">
-        <div className="flex flex-row justify-between z-80">
+        <div className="flex flex-row justify-between z-50">
           <div className="flex items-center gap-x-2">
             <Button
               size="icon-sm"

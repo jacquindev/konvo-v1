@@ -67,6 +67,18 @@ export const getMany = contactSessionQuery({
       .order("desc")
       .paginate(args.paginationOpts);
 
+    /**
+      ** N+1 query pattern causing performance issues.
+      ** The code fetches the last message for each conversation individually within Promise.all, 
+      ** resulting in an N+1 query problem. For a page of 50 conversations, this executes 50 separate 
+      ** listMessages calls, which significantly degrades performance and increases execution costs.
+
+      ** Consider one of these approaches:
+      * Batch query: If supportAgent.listMessages supports batch operations, fetch messages for all threads in a single call
+      * Denormalization: Store the last message metadata directly in the conversations table and update it when new messages arrive
+      * Separate endpoint: Fetch conversation list first, then load messages on-demand (lazy loading) for the conversation the user opens
+      * Additionally, consider adding error handling so that if fetching messages for one conversation fails, the query can still return the other conversations with partial data.
+      */
     const conversationWithLastMessage = await Promise.all(
       conversations.page.map(async (conversation) => {
         let lastMessage: MessageDoc | null = null;

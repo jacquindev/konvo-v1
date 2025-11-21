@@ -9,36 +9,47 @@ interface InfiniteScrollTriggerProps {
   loadMoreText?: string;
   noMoreText?: string;
   className?: string;
-  ref?: React.Ref<HTMLDivElement>;
 }
 
-export const InfiniteScrollTrigger = ({
-  canLoadMore,
-  isLoadingMore,
-  onLoadMore,
-  loadMoreText = "Load more",
-  noMoreText = "No more items",
-  className,
-  ref,
-}: InfiniteScrollTriggerProps) => {
-  let text = loadMoreText;
+export const InfiniteScrollTrigger = React.forwardRef<
+  HTMLDivElement,
+  InfiniteScrollTriggerProps
+>(
+  (
+    {
+      canLoadMore,
+      isLoadingMore,
+      onLoadMore,
+      loadMoreText = "Load more",
+      noMoreText = "No more items",
+      className,
+    },
+    ref
+  ) => {
+    let text = loadMoreText;
 
-  if (isLoadingMore) {
-    text = "Loading...";
-  } else if (!canLoadMore) {
-    text = noMoreText;
-  }
+    if (isLoadingMore) {
+      text = "Loading...";
+    } else if (!canLoadMore) {
+      text = noMoreText;
+    }
 
-  return (
-    <div className={cn("flex w-full justify-center py-2", className)} ref={ref}>
-      <Button
-        disabled={!canLoadMore || isLoadingMore}
-        onClick={onLoadMore}
-        size="sm"
-        variant="ghost"
+    return (
+      <div
+        className={cn("flex w-full justify-center py-2", className)}
+        ref={ref}
       >
-        {text}
-      </Button>
-    </div>
-  );
-};
+        <Button
+          disabled={!canLoadMore || isLoadingMore}
+          onClick={onLoadMore}
+          size="sm"
+          variant="ghost"
+        >
+          {text}
+        </Button>
+      </div>
+    );
+  }
+);
+
+InfiniteScrollTrigger.displayName = "InfiniteScrollTrigger";

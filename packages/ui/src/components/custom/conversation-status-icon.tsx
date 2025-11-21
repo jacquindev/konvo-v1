@@ -28,42 +28,15 @@ export const ConversationStatusIcon = ({
   const config = statusConfig[status];
   const Icon = config.icon;
 
-  switch (status) {
-    case "escalated":
-      return (
-        <div
-          className={cn(
-            "flex items-center justify-center rounded-full p-1.5",
-            config.bgColor,
-            className
-          )}
-        >
-          <Icon className="text-white shrink-0 stroke-3 size-4" />
-        </div>
-      );
-    case "resolved":
-      return (
-        <div
-          className={cn(
-            "flex items-center justify-center rounded-full p-1.5",
-            config.bgColor,
-            className
-          )}
-        >
-          <Icon className="text-white shrink-0 stroke-3 size-4" />
-        </div>
-      );
-    case "unresolved":
-      return (
-        <div
-          className={cn(
-            "flex items-center justify-center rounded-full p-1.5",
-            config.bgColor,
-            className
-          )}
-        >
-          <Icon className="text-white shrink-0 stroke-3 size-4" />
-        </div>
-      );
-  }
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-center rounded-full p-1.5",
+        config.bgColor,
+        className
+      )}
+    >
+      <Icon className="text-white shrink-0 stroke-3 size-4" />
+    </div>
+  );
 };
