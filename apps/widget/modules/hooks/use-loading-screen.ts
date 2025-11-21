@@ -30,6 +30,8 @@ export const useLoadingScreen = (organizationId: string | null) => {
   useEffect(() => {
     if (step !== "org") return;
 
+    let cancelled = false;
+
     setLoadingMessage("Loading organization...");
 
     if (!organizationId) {
@@ -43,6 +45,7 @@ export const useLoadingScreen = (organizationId: string | null) => {
     validateOrganization({ organizationId })
       .then((result) => {
         if (result.valid) {
+          if (cancelled) return;
           setOrganizationId(organizationId);
           setStep("session");
         } else {
@@ -51,9 +54,14 @@ export const useLoadingScreen = (organizationId: string | null) => {
         }
       })
       .catch(() => {
+        if (cancelled) return;
         setErrorMessage("Unable to verify organization");
         setScreen("error");
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [
     organizationId,
     setErrorMessage,
@@ -69,6 +77,8 @@ export const useLoadingScreen = (organizationId: string | null) => {
   useEffect(() => {
     if (step !== "session") return;
 
+    let cancelled = false;
+
     setLoadingMessage("Loading session...");
 
     if (!contactSessionId) {
@@ -81,13 +91,19 @@ export const useLoadingScreen = (organizationId: string | null) => {
 
     validateSession({ contactSessionId })
       .then((result) => {
+        if (cancelled) return;
         setSessionValid(result.valid);
         setStep("done");
       })
       .catch(() => {
+        if (cancelled) return;
         setSessionValid(false);
         setStep("done");
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [contactSessionId, setLoadingMessage, step, validateSession]);
 
   // Step 3: Widget Settings
