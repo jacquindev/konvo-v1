@@ -1,6 +1,7 @@
 "use client";
 
 import { useChatScreen } from "@/modules/hooks/use-chat-screen";
+import { INITIAL_NUM_ITEMS } from "@/modules/lib/constants";
 import { toUIMessages } from "@convex-dev/agent";
 import {
   Conversation,
@@ -15,12 +16,12 @@ import {
 import {
   PromptInput,
   PromptInputBody,
-  PromptInputButton,
   PromptInputFooter,
   PromptInputSubmit,
   PromptInputTextarea,
-  PromptInputTools,
 } from "@repo/ui/components/ai-elements/prompt-input";
+import { DicebearAvatar } from "@repo/ui/components/custom/dicebear-avatar";
+import { InfiniteScrollTrigger } from "@repo/ui/components/custom/infinite-scroll-trigger";
 import { ThemeToggle } from "@repo/ui/components/theme/toggle";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -31,12 +32,20 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Label } from "@repo/ui/components/ui/label";
+import { useInfiniteScroll } from "@repo/ui/hooks/use-infinite-scroll";
 import { cn } from "@repo/ui/lib/utils";
-import { ArrowLeftIcon, MenuIcon, Wand2Icon } from "lucide-react";
+import { ArrowLeftIcon, MenuIcon } from "lucide-react";
 import { WidgetHeader } from "../components/widget-header";
 
 export const WidgetChatScreen = () => {
   const { conversation, messages, form, onBack, onSubmit } = useChatScreen();
+
+  const { canLoadMore, topElementRef, onLoadMore, isLoadingMore } =
+    useInfiniteScroll({
+      status: messages.status,
+      loadMore: messages.loadMore,
+      loadSize: INITIAL_NUM_ITEMS,
+    });
 
   return (
     <>
@@ -57,11 +66,22 @@ export const WidgetChatScreen = () => {
             <Button size="icon-sm" variant="ghost" className="size-7 group">
               <MenuIcon className="size-4 shrink-0 text-zinc-300 group-hover:text-foreground" />
             </Button>
-            <ThemeToggle className="size-7 bg-transparent border-none text-zinc-300" />
+            <ThemeToggle
+              className="size-7 bg-transparent border-none"
+              iconClassName="text-zinc-300 group-hover:text-foreground"
+            />
           </div>
         </div>
       </WidgetHeader>
+
       <Conversation>
+        <InfiniteScrollTrigger
+          canLoadMore={canLoadMore}
+          ref={topElementRef}
+          onLoadMore={onLoadMore}
+          isLoadingMore={isLoadingMore}
+        />
+
         <ConversationContent>
           {toUIMessages(messages.results ?? [])?.map((message) => {
             return (
@@ -70,10 +90,12 @@ export const WidgetChatScreen = () => {
                 from={message.role === "user" ? "user" : "assistant"}
               >
                 <div className="flex gap-x-2">
-                  {/* TODO: Add Avatar Component */}
+                  {message.role === "assistant" && (
+                    <DicebearAvatar imageUrl="/logo.png" seed="assistant" />
+                  )}
                   <MessageContent
                     className={cn(
-                      "group-[.is-assistant]:bg-card group-[.is-assistant]:px-4 group-[.is-assistant]:py-3 group-[.is-assistant]:rounded-lg group-[.is-assistant]:text-foreground group-[.is-assistant]:border group-[.is-assistant]:border-card"
+                      "group-[.is-assistant]:bg-card group-[.is-assistant]:px-4 group-[.is-assistant]:py-3 group-[.is-assistant]:rounded-lg group-[.is-assistant]:text-foreground group-[.is-assistant]:border group-[.is-assistant]:border-card dark:group-[.is-assistant]:border-border"
                     )}
                   >
                     <MessageResponse>{message.text}</MessageResponse>
@@ -87,6 +109,7 @@ export const WidgetChatScreen = () => {
       </Conversation>
 
       {/* TODO: Add suggestions */}
+
       <Form {...form}>
         <PromptInput
           onSubmit={() => form.handleSubmit(onSubmit)()}
@@ -115,13 +138,7 @@ export const WidgetChatScreen = () => {
               )}
             />
           </PromptInputBody>
-          <PromptInputFooter>
-            <PromptInputTools>
-              <PromptInputButton>
-                <Wand2Icon size={16} />
-                <span>Enhance</span>
-              </PromptInputButton>
-            </PromptInputTools>
+          <PromptInputFooter className="flex justify-end">
             <PromptInputSubmit
               type="submit"
               status="ready"

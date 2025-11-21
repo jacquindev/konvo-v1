@@ -1,4 +1,5 @@
-import { createThread } from "@convex-dev/agent";
+import { createThread, type MessageDoc } from "@convex-dev/agent";
+import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
 import { components } from "../_generated/api";
 import {
@@ -51,6 +52,48 @@ export const getOne = contactSessionQuery({
       _id: conversation._id,
       status: conversation.status,
       threadId: conversation.threadId,
+    };
+  },
+});
+
+export const getMany = contactSessionQuery({
+  args: { paginationOpts: paginationOptsValidator },
+  async handler(ctx, args) {
+    const conversations = await ctx.db
+      .query("conversations")
+      .withIndex("by_contact_session_id", (q) =>
+        q.eq("contactSessionId", args.contactSessionId)
+      )
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    const conversationWithLastMessage = await Promise.all(
+      conversations.page.map(async (conversation) => {
+        let lastMessage: MessageDoc | null = null;
+
+        const messages = await supportAgent.listMessages(ctx, {
+          threadId: conversation.threadId,
+          paginationOpts: { numItems: 1, cursor: null },
+        });
+
+        if (messages.page.length > 0) {
+          lastMessage = messages.page[0] ?? null;
+        }
+
+        return {
+          _id: conversation._id,
+          _creationTime: conversation._creationTime,
+          status: conversation.status,
+          organizationId: conversation.organizationId,
+          threadId: conversation.threadId,
+          lastMessage,
+        };
+      })
+    );
+
+    return {
+      ...conversations,
+      page: conversationWithLastMessage,
     };
   },
 });

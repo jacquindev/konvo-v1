@@ -20,7 +20,7 @@ export const WidgetAuthScreen = () => {
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 font-semibold">
+        <div className="flex flex-col justify-between gap-y-2 font-semibold text-white">
           <p className="text-3xl">Hi there! 👋</p>
           <p className="text-lg">Tell us some more about you.</p>
         </div>
