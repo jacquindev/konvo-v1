@@ -192,11 +192,10 @@
 
   /* Animations */
   --animate-first: moveVertical 30s ease infinite;
-  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-second: moveInCircle 20s ease reverse infinite;
   --animate-third: moveInCircle 40s linear infinite;
   --animate-fourth: moveHorizontal 40s ease infinite;
   --animate-fifth: moveInCircle 20s ease infinite;
-
   @keyframes moveHorizontal {
     0% {
       transform: translateX(-50%) translateY(-10%);

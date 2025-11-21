@@ -1,18 +1,21 @@
 "use client";
 
+import { screenAtom } from "@/modules/lib/atoms";
 import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@repo/ui/lib/utils";
+import { useAtomValue, useSetAtom } from "jotai";
 import { HomeIcon, InboxIcon } from "lucide-react";
 
 export const WidgetFooter = () => {
-  const screen = "selection";
+  const screen = useAtomValue(screenAtom);
+  const setScreen = useSetAtom(screenAtom);
 
   return (
     <footer className="flex items-center justify-between border-t">
       <Button
         className="flex-1 h-14 rounded-none"
         variant="secondary"
-        onClick={() => {}}
+        onClick={() => setScreen("selection")}
       >
         <HomeIcon
           fill="currentColor"
@@ -23,12 +26,12 @@ export const WidgetFooter = () => {
       <Button
         className="flex-1 h-14 rounded-none"
         variant="secondary"
-        onClick={() => {}}
+        onClick={() => setScreen("inbox")}
       >
         <InboxIcon
           fill="currentColor"
-          fillOpacity={0}
-          className={cn("size-5")}
+          fillOpacity={screen === "inbox" ? 0.3 : 0}
+          className={cn("size-5", screen === "inbox" && "text-primary")}
         />
       </Button>
     </footer>

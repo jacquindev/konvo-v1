@@ -43,7 +43,7 @@ export const useAuthScreen = () => {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timezoneOffset: new Date().getTimezoneOffset(),
       cookieEnabled: navigator.cookieEnabled,
-      referrer: document.referrer ?? "direct",
+      referrer: document.referrer || "direct",
       currentUrl: window.location.href,
     };
 

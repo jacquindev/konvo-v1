@@ -1,3 +1,4 @@
+import { WidgetFooter } from "../components/widget-footer";
 import { WidgetHeader } from "../components/widget-header";
 
 export const WidgetSelectionScreen = () => {
@@ -9,6 +10,8 @@ export const WidgetSelectionScreen = () => {
           <p className="text-lg">Let&apos;s get started!</p>
         </div>
       </WidgetHeader>
+      <div className="flex flex-1">Selection Screen</div>
+      <WidgetFooter />
     </>
   );
 };
