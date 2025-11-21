@@ -1,8 +1,13 @@
-import { customCtx, customQuery } from "convex-helpers/server/customFunctions";
+import {
+  customAction,
+  customCtx,
+  customMutation,
+  customQuery,
+} from "convex-helpers/server/customFunctions";
 import { ConvexError } from "convex/values";
-import { query } from "../_generated/server";
+import { action, mutation, query } from "../_generated/server";
 
-export const identityQuery = customQuery(
+export const privateQuery = customQuery(
   query,
   customCtx(async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -23,6 +28,56 @@ export const identityQuery = customQuery(
       });
     }
 
-    return { orgId };
+    return { identity, orgId };
+  })
+);
+
+export const privateMutation = customMutation(
+  mutation,
+  customCtx(async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Not authenticated",
+      });
+    }
+
+    const orgId = identity.organization_id;
+
+    if (!orgId || typeof orgId !== "string") {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "User does not belong to an organization",
+      });
+    }
+
+    return { identity, orgId };
+  })
+);
+
+export const privateAction = customAction(
+  action,
+  customCtx(async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Not authenticated",
+      });
+    }
+
+    const orgId = identity.organization_id;
+
+    if (!orgId || typeof orgId !== "string") {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "User does not belong to an organization",
+      });
+    }
+
+    return { identity, orgId };
   })
 );

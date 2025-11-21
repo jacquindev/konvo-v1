@@ -1,9 +1,10 @@
 import { ClerkClientProvider } from "@/providers/clerk-provider";
 import { ConvexClientProvider } from "@/providers/convex-provider";
+import { ThemeProvider } from "@repo/ui/components/theme/provider";
+import { Toaster } from "@repo/ui/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
 
-import { ThemeProvider } from "@repo/ui/components/theme/provider";
 import "@repo/ui/globals.css";
 
 const fontSans = Inter({
@@ -45,6 +46,7 @@ export default function RootLayout({
           <ClerkClientProvider>
             <ConvexClientProvider>{children}</ConvexClientProvider>
           </ClerkClientProvider>
+          <Toaster closeButton position="top-center" />
         </ThemeProvider>
       </body>
     </html>

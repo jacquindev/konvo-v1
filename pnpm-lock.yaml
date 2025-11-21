@@ -48,7 +48,7 @@ catalogs:
       specifier: ^16.0.1
       version: 16.0.3
     sonner:
-      specifier: ^2.0.7
+      specifier: 2.0.7
       version: 2.0.7
     typescript:
       specifier: 5.9.2
@@ -102,6 +102,9 @@ importers:
       '@convex-dev/agent':
         specifier: catalog:convex
         version: 0.3.0(@ai-sdk/provider-utils@3.0.17(zod@4.1.12))(ai@5.0.98(zod@4.1.12))(convex-helpers@0.1.105(@standard-schema/spec@1.0.0)(convex@1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0))(react@19.2.0)(typescript@5.9.2)(zod@4.1.12))(convex@1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      '@hookform/resolvers':
+        specifier: catalog:form
+        version: 5.2.2(react-hook-form@7.66.1(react@19.2.0))
       '@repo/backend':
         specifier: workspace:*
         version: link:../../packages/backend
@@ -135,6 +138,15 @@ importers:
       react-dom:
         specifier: catalog:react19
         version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: catalog:form
+        version: 7.66.1(react@19.2.0)
+      sonner:
+        specifier: 'catalog:'
+        version: 2.0.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: catalog:form
+        version: 4.1.12
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -242,6 +254,9 @@ importers:
       convex-helpers:
         specifier: catalog:convex
         version: 0.1.105(@standard-schema/spec@1.0.0)(convex@1.29.3(@clerk/clerk-react@5.56.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0))(react@19.2.0)(typescript@5.9.2)(zod@4.1.12)
+      zod:
+        specifier: catalog:form
+        version: 4.1.12
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*

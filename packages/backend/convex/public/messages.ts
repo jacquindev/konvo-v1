@@ -1,9 +1,12 @@
+import { saveMessage } from "@convex-dev/agent";
 import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
-import { internal } from "../_generated/api";
+import { components, internal } from "../_generated/api";
 import { action } from "../_generated/server";
-import { contactSessionQuery } from "../lib/publicUtils";
+import { publicQuery } from "../lib/publicUtils";
 import { supportAgent } from "../system/ai/agents/supportAgent";
+import { escalateConversation } from "../system/ai/tools/escalateConversation";
+import { resolveConversation } from "../system/ai/tools/resolveConversation";
 
 export const create = action({
   args: {
@@ -45,22 +48,39 @@ export const create = action({
 
     // TODO: Implement subscription check
 
-    await supportAgent.generateText(
-      ctx,
-      { threadId: args.threadId },
-      {
-        prompt: args.prompt,
-        experimental_telemetry: {
-          isEnabled: true,
-          recordInputs: true,
-          recordOutputs: true,
+    const shouldTriggerAgent = conversation.status === "unresolved";
+
+    if (shouldTriggerAgent) {
+      await supportAgent.generateText(
+        ctx,
+        {
+          threadId: args.threadId,
+          userId: conversation.contactSessionId,
         },
-      }
-    );
+        {
+          prompt: args.prompt,
+          tools: {
+            resolveConversation,
+            escalateConversation,
+          },
+          experimental_telemetry: {
+            isEnabled: true,
+            recordInputs: true,
+            recordOutputs: true,
+          },
+        }
+      );
+    } else {
+      await saveMessage(ctx, components.agent, {
+        threadId: args.threadId,
+        userId: conversation.contactSessionId,
+        prompt: args.prompt,
+      });
+    }
   },
 });
 
-export const getMany = contactSessionQuery({
+export const getMany = publicQuery({
   args: {
     threadId: v.string(),
     paginationOpts: paginationOptsValidator,

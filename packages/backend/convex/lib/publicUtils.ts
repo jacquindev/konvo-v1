@@ -5,7 +5,7 @@ import {
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "../_generated/server";
 
-export const contactSessionMutation = customMutation(mutation, {
+export const publicMutation = customMutation(mutation, {
   args: {
     contactSessionId: v.id("contactSessions"),
   },
@@ -23,7 +23,7 @@ export const contactSessionMutation = customMutation(mutation, {
   },
 });
 
-export const contactSessionQuery = customQuery(query, {
+export const publicQuery = customQuery(query, {
   args: {
     contactSessionId: v.id("contactSessions"),
   },

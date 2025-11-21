@@ -2,13 +2,10 @@ import { createThread, type MessageDoc } from "@convex-dev/agent";
 import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
 import { components } from "../_generated/api";
-import {
-  contactSessionMutation,
-  contactSessionQuery,
-} from "../lib/publicUtils";
+import { publicMutation, publicQuery } from "../lib/publicUtils";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 
-export const create = contactSessionMutation({
+export const create = publicMutation({
   args: { organizationId: v.string() },
   async handler(ctx, args) {
     // This thread will be associated with that user and messages will be saved to the user's history
@@ -36,7 +33,7 @@ export const create = contactSessionMutation({
   },
 });
 
-export const getOne = contactSessionQuery({
+export const getOne = publicQuery({
   args: { conversationId: v.id("conversations") },
   async handler(ctx, args) {
     const conversation = await ctx.db.get(args.conversationId);
@@ -56,7 +53,7 @@ export const getOne = contactSessionQuery({
   },
 });
 
-export const getMany = contactSessionQuery({
+export const getMany = publicQuery({
   args: { paginationOpts: paginationOptsValidator },
   async handler(ctx, args) {
     const conversations = await ctx.db
