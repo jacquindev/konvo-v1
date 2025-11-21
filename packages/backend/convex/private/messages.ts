@@ -9,6 +9,7 @@ import {
   privateMutation,
   privateQuery,
 } from "../lib/privateUtils";
+import { OPERATOR_MESSAGE_ENHANCEMENT_PROMPT } from "../lib/prompts";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 
 export const getMany = privateQuery({
@@ -79,8 +80,7 @@ export const create = privateMutation({
     await saveMessage(ctx, components.agent, {
       threadId: conversation.threadId,
       userId: conversation.contactSessionId,
-      // TODO: Check if "agentName" is needed or not
-      agentName: ctx.identity.familyName,
+      agentName: "Human Operator",
       message: {
         role: "assistant",
         content: args.prompt,
@@ -99,8 +99,7 @@ export const enhanceResponse = privateAction({
       messages: [
         {
           role: "system",
-          content:
-            "Enhance the operator's message to be more professional, clear, and helpful while maintaining their intent and key information.",
+          content: OPERATOR_MESSAGE_ENHANCEMENT_PROMPT,
         },
         {
           role: "user",

@@ -91,7 +91,11 @@ export const WidgetChatScreen = () => {
               >
                 <div className="flex gap-x-2">
                   {message.role === "assistant" && (
-                    <DicebearAvatar imageUrl="/logo.png" seed="assistant" />
+                    <DicebearAvatar
+                      imageUrl="/logo.png"
+                      seed="assistant"
+                      size={40}
+                    />
                   )}
                   <MessageContent
                     className={cn(
