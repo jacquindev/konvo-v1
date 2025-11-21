@@ -17,6 +17,7 @@
     "@hookform/resolvers": "catalog:form",
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@sentry/nextjs": "^10.26.0",
     "convex": "catalog:convex",
     "countries-and-timezones": "^3.8.0",
     "date-fns": "catalog:",
