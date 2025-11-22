@@ -8,12 +8,16 @@ import {
 } from "@aws-sdk/client-secrets-manager";
 
 export function createSecretsManagerClient(): SecretsManagerClient {
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+  if (!accessKeyId || !secretAccessKey) {
+    throw new Error("AWS credentials not found in environment variables");
+  }
+
   return new SecretsManagerClient({
     region: process.env.AWS_REGION,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
+    credentials: { accessKeyId, secretAccessKey },
   });
 }
 
@@ -53,12 +57,17 @@ export async function upsertSecret(
 }
 
 export function parseSecretString<T = Record<string, unknown>>(
-  secret: GetSecretValueCommandOutput
+  secret: GetSecretValueCommandOutput,
+  validate?: (value: unknown) => value is T
 ): T | null {
   if (!secret.SecretString) return null;
 
   try {
-    return JSON.parse(secret.SecretString) as T;
+    const parsed = JSON.parse(secret.SecretString);
+    if (validate && !validate(parsed)) {
+      return null;
+    }
+    return parsed as T;
   } catch {
     return null;
   }

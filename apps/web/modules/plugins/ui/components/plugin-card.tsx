@@ -1,17 +1,17 @@
 "use client";
 
+import { PluginFeature } from "@/modules/plugins/lib/types";
 import { Button } from "@repo/ui/components/ui/button";
 import { Spinner } from "@repo/ui/components/ui/spinner";
 import { cn } from "@repo/ui/lib/utils";
-import { ArrowLeftRightIcon, LucideIcon, ZapIcon } from "lucide-react";
+import {
+  ArrowLeftRightIcon,
+  SquareArrowOutUpRightIcon,
+  ZapIcon,
+} from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
-
-export interface PluginFeature {
-  icon: LucideIcon;
-  label: string;
-  description: string;
-}
+import Link from "next/link";
 
 interface PluginCardProps {
   serviceName: string;
@@ -19,6 +19,7 @@ interface PluginCardProps {
   serviceImageClassName?: string;
   features: PluginFeature[];
   disabled?: boolean;
+  learnMoreUrl?: string;
   onSubmit: () => void;
 }
 
@@ -28,6 +29,7 @@ export const PluginCard = ({
   serviceImageClassName,
   features,
   disabled,
+  learnMoreUrl,
   onSubmit,
 }: PluginCardProps) => {
   return (
@@ -121,9 +123,9 @@ export const PluginCard = ({
         }}
       >
         <div className="space-y-5">
-          {features.map((feature) => (
+          {features.map((feature, index) => (
             <motion.div
-              key={feature.label}
+              key={`${feature.label}-${index}`}
               variants={{
                 hidden: { opacity: 0, y: 10 },
                 visible: { opacity: 1, y: 0 },
@@ -154,11 +156,11 @@ export const PluginCard = ({
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.3 }}
-        className="text-center"
+        className="flex flex-col gap-4"
       >
         <motion.div whileTap={{ scale: 0.96 }} whileHover={{ scale: 1.02 }}>
           <Button
-            className="w-full transition-all duration-200"
+            className="w-full transition-all duration-200 shadow-sm hover:shadow-md"
             disabled={disabled}
             onClick={onSubmit}
             variant="default"
@@ -177,6 +179,24 @@ export const PluginCard = ({
             )}
           </Button>
         </motion.div>
+
+        {learnMoreUrl && (
+          <Button
+            className="w-full transition-all duration-200 shadow-none"
+            asChild
+            variant="ghost"
+            size="lg"
+          >
+            <Link
+              href={learnMoreUrl}
+              target="_blank"
+              className="text-muted-foreground"
+            >
+              <span>Learn More</span>
+              <SquareArrowOutUpRightIcon className="size-4" />
+            </Link>
+          </Button>
+        )}
       </motion.div>
     </motion.div>
   );

@@ -1,12 +1,18 @@
+import type {
+  UseVapiAssistants,
+  UseVapiPhoneNumbers,
+  VapiAssistants,
+  VapiPhoneNumbers,
+} from "@/modules/plugins/lib/types";
 import {
   VapiConnectSchema,
   type VapiConnectSchemaValues,
 } from "@/modules/plugins/schemas/vapi.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@repo/backend/_generated/api";
-import { useMutation, useQuery } from "convex/react";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { ConvexError } from "convex/values";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -55,6 +61,7 @@ export const useVapiConnect = (onOpenChange: (open: boolean) => void) => {
           publicApiKey: values.publicApiKey,
         },
       });
+      form.reset();
       onOpenChange(false);
       toast.success("Connected to Vapi successfully!");
     } catch (error) {
@@ -67,4 +74,96 @@ export const useVapiConnect = (onOpenChange: (open: boolean) => void) => {
   };
 
   return { form, onSubmit, isSubmitting: form.formState.isSubmitting };
+};
+
+export const useVapiPhoneNumbers = (): UseVapiPhoneNumbers => {
+  const [data, setData] = useState<VapiPhoneNumbers>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const getPhoneNumbers = useAction(api.private.vapi.getPhoneNumbers);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await getPhoneNumbers();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+        toast.error("Failed to fetch phone numbers from Vapi");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [getPhoneNumbers]);
+
+  return {
+    data,
+    isLoading,
+    error,
+  };
+};
+
+export const useVapiAssistants = (): UseVapiAssistants => {
+  const [data, setData] = useState<VapiAssistants>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const getAssistants = useAction(api.private.vapi.getAssistants);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await getAssistants();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+        toast.error("Failed to fetch assistants from Vapi");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [getAssistants]);
+
+  return {
+    data,
+    isLoading,
+    error,
+  };
+};
+
+export const useVapiDisconnect = (onOpenChange: (open: boolean) => void) => {
+  const [isDisconnecting, setIsDisconnecting] = useState(false);
+
+  const disconnect = useMutation(api.private.plugins.remove);
+
+  const onDisconnect = async () => {
+    setIsDisconnecting(true);
+    try {
+      await disconnect({ service: "vapi" });
+      onOpenChange(false);
+      toast.success("Vapi disconnected sucessfully!");
+    } catch (error) {
+      const errorMessage =
+        error instanceof ConvexError
+          ? error.message
+          : "Failed to disconnect from Vapi. Please try again.";
+      toast.error(errorMessage);
+    } finally {
+      setIsDisconnecting(false);
+    }
+  };
+
+  return {
+    onDisconnect,
+    isDisconnecting,
+  };
 };

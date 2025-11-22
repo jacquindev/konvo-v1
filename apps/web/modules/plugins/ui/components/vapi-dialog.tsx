@@ -1,6 +1,17 @@
 "use client";
 
-import { useVapiConnect } from "@/modules/plugins/hooks/use-vapi";
+import {
+  useVapiConnect,
+  useVapiDisconnect,
+} from "@/modules/plugins/hooks/use-vapi";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@repo/ui/components/ui/alert-dialog";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Dialog,
@@ -20,7 +31,7 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { Spinner } from "@repo/ui/components/ui/spinner";
-import { PlugIcon } from "lucide-react";
+import { PlugIcon, UnplugIcon } from "lucide-react";
 import Link from "next/link";
 
 interface VapiConnectDialogProps {
@@ -112,5 +123,67 @@ export const VapiConnectDialog = ({
         </Form>
       </DialogContent>
     </Dialog>
+  );
+};
+
+interface VapiDisconnectDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export const VapiDisconnectDialog = ({
+  open,
+  onOpenChange,
+}: VapiDisconnectDialogProps) => {
+  const { onDisconnect, isDisconnecting } = useVapiDisconnect(onOpenChange);
+
+  return (
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will disconnect you completely
+            from{" "}
+            <Link
+              href="/"
+              target="_blank"
+              className="text-primary font-medium hover:underline hover:underline-offset-2"
+            >
+              Vapi
+            </Link>{" "}
+            server.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <div className="flex flex-1 items-center justify-between">
+            <Button
+              variant="outline"
+              disabled={isDisconnecting}
+              onClick={() => onOpenChange(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={onDisconnect}
+              disabled={isDisconnecting}
+            >
+              {isDisconnecting ? (
+                <>
+                  <Spinner className="size-4" />
+                  Disconnecting...
+                </>
+              ) : (
+                <>
+                  <UnplugIcon className="size-4" />
+                  Disconnect
+                </>
+              )}
+            </Button>
+          </div>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

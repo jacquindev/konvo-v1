@@ -26,35 +26,22 @@ export const WorkspaceHeader = ({
 
       {Icon && (
         <div className="relative size-12 shrink-0 flex items-center justify-center rounded-lg bg-linear-to-br from-primary/20 to-primary/80 dark:to-primary/60 drop-shadow-sm shadow-md">
-          {(() => {
-            let IconComponent;
-
-            if (typeof Icon === "string") {
-              IconComponent = (
-                <Image
-                  src={Icon}
-                  alt="plugin"
-                  width={40}
-                  height={40}
-                  className={cn(
-                    "size-full object-cover rounded-lg",
-                    iconClassName
-                  )}
-                />
-              );
-            } else {
-              IconComponent = (
-                <Icon
-                  className={cn(
-                    "size-7 dark:text-purple-300 text-purple-700 text-shadow-purple-400",
-                    iconClassName
-                  )}
-                />
-              );
-            }
-
-            return IconComponent;
-          })()}
+          {typeof Icon === "string" ? (
+            <Image
+              src={Icon}
+              alt="plugin"
+              width={40}
+              height={40}
+              className={cn("size-full object-cover rounded-lg", iconClassName)}
+            />
+          ) : (
+            <Icon
+              className={cn(
+                "size-7 dark:text-purple-300 text-purple-700 text-shadow-purple-400",
+                iconClassName
+              )}
+            />
+          )}
         </div>
       )}
     </div>

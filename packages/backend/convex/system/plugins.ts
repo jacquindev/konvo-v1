@@ -1,4 +1,4 @@
-import { ConvexError, v } from "convex/values";
+import { v } from "convex/values";
 import { internalMutation, internalQuery } from "../_generated/server";
 
 export const upsert = internalMutation({
@@ -16,12 +16,6 @@ export const upsert = internalMutation({
       .unique();
 
     if (existingPlugin) {
-      if (existingPlugin.organizationId !== args.organizationId) {
-        throw new ConvexError({
-          code: "BAD_REQUEST",
-          message: "Cannot change organization ID for existing plugin",
-        });
-      }
       await ctx.db.patch(existingPlugin._id, {
         service: args.service,
         secretName: args.secretName,
