@@ -66,7 +66,7 @@ export const FilesView = () => {
         file={selectedFile}
         onDeleted={handleFileDeleted}
       />
-      <div className="rounded-lg border bg-card mt-10">
+      <div className="rounded-lg border bg-card mt-10 shadow-sm">
         <div className="flex items-center justify-end border-b px-6 py-4">
           <Button
             onClick={() => setUploadDialogOpen(true)}
