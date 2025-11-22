@@ -46,7 +46,7 @@ export default function RootLayout({
           <ClerkClientProvider>
             <ConvexClientProvider>{children}</ConvexClientProvider>
           </ClerkClientProvider>
-          <Toaster closeButton position="top-center" />
+          <Toaster closeButton />
         </ThemeProvider>
       </body>
     </html>

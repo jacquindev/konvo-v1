@@ -42,7 +42,7 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
 
   return (
     <div className="space-y-6">
-      <Item variant="outline" className="bg-card shadow-xs py-6 rounded-lg">
+      <Item variant="outline" className="bg-card shadow-sm py-6 rounded-lg">
         <ItemMedia variant="image" className="size-12 rounded">
           <Image
             src="/vapi.jpg"
@@ -72,7 +72,7 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
         </ItemActions>
       </Item>
 
-      <Item variant="outline" className="bg-card shadow-xs py-6 rounded-lg">
+      <Item variant="outline" className="bg-card shadow-sm py-6 rounded-lg">
         <ItemMedia variant="icon" className="size-12 rounded">
           <SettingsIcon className="size-7" />
         </ItemMedia>
@@ -99,7 +99,7 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
 
       <Separator className="mx-auto" />
 
-      <div className="overflow-hidden rounded-lg border bg-background">
+      <div className="overflow-hidden rounded-lg border bg-card shadow-sm">
         <Tabs
           defaultValue="phone-numbers"
           onValueChange={(value) => setActiveTab(value as VapiTabs)}
