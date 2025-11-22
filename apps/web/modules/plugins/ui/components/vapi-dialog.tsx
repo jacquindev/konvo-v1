@@ -143,16 +143,8 @@ export const VapiDisconnectDialog = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will disconnect you completely
-            from{" "}
-            <Link
-              href="/"
-              target="_blank"
-              className="text-primary font-medium hover:underline hover:underline-offset-2"
-            >
-              Vapi
-            </Link>{" "}
-            server.
+            This will remove your stored Vapi API keys. You can reconnect at any
+            time by re-entering your API keys.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

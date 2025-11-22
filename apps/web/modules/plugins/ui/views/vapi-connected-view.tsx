@@ -64,7 +64,7 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
           <Button
             variant="destructive"
             onClick={onDisconnect}
-            className="hover:scale-102 transition-all duration-300 hover:shadow-md"
+            className="hover:scale-102 transition-[transform,box-shadow] duration-300 hover:shadow-md"
           >
             <UnplugIcon className="size-4 shrink-0" />
             Disconnect
@@ -87,7 +87,7 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
         <ItemActions>
           <Button
             asChild
-            className="hover:scale-102 transition-all duration-300 hover:shadow-md"
+            className="hover:scale-102 transition-[transform,box-shadow] duration-300 hover:shadow-md"
           >
             <Link href="/customization">
               <PaletteIcon className="size-4 shrink-0" />
@@ -107,19 +107,19 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
           className="size-full"
         >
           <TabsList className="grid grid-cols-2 w-full min-w-0">
-            <TabsTrigger value="phone-numbers">
+            <TabsTrigger value={"phone-numbers" as VapiTabs}>
               <PhoneIcon /> Phone Numbers
             </TabsTrigger>
-            <TabsTrigger value="ai-assistants">
+            <TabsTrigger value={"ai-assistants" as VapiTabs}>
               <BotIcon /> AI Assistants
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="phone-numbers">
+          <TabsContent value={"phone-numbers" as VapiTabs}>
             <VapiPhoneNumbersTab />
           </TabsContent>
 
-          <TabsContent value="ai-assistants">
+          <TabsContent value={"ai-assistants" as VapiTabs}>
             <VapiAssistantsTab />
           </TabsContent>
         </Tabs>
