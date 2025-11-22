@@ -187,8 +187,7 @@ export const CustomizationForm = ({
                         className="min-w-56 dark:bg-card/60 backdrop-blur-lg max-h-[200px] overflow-y-auto"
                       >
                         <SelectItem value="none">None</SelectItem>
-
-                        {assistants.map((assistant) => (
+                        {assistants?.map((assistant) => (
                           <SelectItem key={assistant.id} value={assistant.id}>
                             <BotIcon />
                             <span>
@@ -202,7 +201,7 @@ export const CustomizationForm = ({
                       </SelectContent>
                     </Select>
                     <FormDescription>
-                      The Vapi assistant to use for voice calls.
+                      The phone number to use for voice calls.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -237,8 +236,7 @@ export const CustomizationForm = ({
                         className="min-w-56 dark:bg-card/60 backdrop-blur-lg max-h-[200px] overflow-y-auto"
                       >
                         <SelectItem value="none">None</SelectItem>
-
-                        {phoneNumbers.map((phone) => (
+                        {phoneNumbers?.map((phone) => (
                           <SelectItem
                             key={phone.id}
                             value={phone.number || phone.id}

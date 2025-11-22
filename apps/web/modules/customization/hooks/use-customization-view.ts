@@ -24,15 +24,15 @@ export const useCustomizationForm = (initialData?: WidgetSettings | null) => {
     resolver: zodResolver(CustomizationSchema),
     defaultValues: {
       greetMessage:
-        initialData?.greetMessage || "Hi! How can I help you today?",
+        initialData?.greetMessage ?? "Hi! How can I help you today?",
       defaultSuggestions: {
-        suggestion1: initialData?.defaultSuggestions?.suggestion1 || "",
-        suggestion2: initialData?.defaultSuggestions?.suggestion2 || "",
-        suggestion3: initialData?.defaultSuggestions?.suggestion3 || "",
+        suggestion1: initialData?.defaultSuggestions?.suggestion1 ?? "",
+        suggestion2: initialData?.defaultSuggestions?.suggestion2 ?? "",
+        suggestion3: initialData?.defaultSuggestions?.suggestion3 ?? "",
       },
       vapiSettings: {
-        assistantId: initialData?.vapiSettings?.assistantId || "",
-        phoneNumber: initialData?.vapiSettings?.phoneNumber || "",
+        assistantId: initialData?.vapiSettings?.assistantId ?? "",
+        phoneNumber: initialData?.vapiSettings?.phoneNumber ?? "",
       },
     },
   });
