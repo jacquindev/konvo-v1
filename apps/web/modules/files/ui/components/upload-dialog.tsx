@@ -42,7 +42,7 @@ export const UploadDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg dark:bg-card/60 backdrop-blur-lg">
         <DialogHeader>
           <DialogTitle className="text-xl">Upload Document</DialogTitle>
           <DialogDescription>
