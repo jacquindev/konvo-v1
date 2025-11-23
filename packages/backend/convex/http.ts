@@ -14,7 +14,7 @@ http.route({
     const event = await validateRequest(request);
 
     if (!event) {
-      return new Response("Error occured", { status: 400 });
+      return new Response("Error occurred", { status: 400 });
     }
 
     switch (event.type) {
@@ -35,15 +35,19 @@ http.route({
         const newMaxAllowedMemberships =
           subscription.status === "active" ? 5 : 1;
 
-        await clerkClient.organizations.updateOrganization(organizationId, {
-          maxAllowedMemberships: newMaxAllowedMemberships,
-        });
+        try {
+          await clerkClient.organizations.updateOrganization(organizationId, {
+            maxAllowedMemberships: newMaxAllowedMemberships,
+          });
 
-        await ctx.runMutation(internal.system.subscriptions.upsert, {
-          organizationId,
-          status: subscription.status,
-        });
-
+          await ctx.runMutation(internal.system.subscriptions.upsert, {
+            organizationId,
+            status: subscription.status,
+          });
+        } catch (error) {
+          console.error("Error processing subscription update", error);
+          return new Response("Error processing webhook", { status: 500 });
+        }
         break;
       }
 

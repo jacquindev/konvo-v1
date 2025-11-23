@@ -59,7 +59,7 @@ const features: Feature[] = [
   {
     icon: BookOpenIcon,
     label: "Knowledge Base",
-    description: "Train your AI based on documentations",
+    description: "Train your AI based on documentation",
   },
   {
     icon: Users2Icon,

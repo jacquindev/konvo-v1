@@ -129,10 +129,9 @@ export const useVapiPhoneNumbers = (
         setError(null);
       } catch (error) {
         setError(error as Error);
-        toast.error("Failed to fetch phone numbers from Vapi");
+        toast.error("Failed to fetch assistants from Vapi");
       } finally {
         setIsLoading(false);
-        setError(null);
       }
     };
 
@@ -170,7 +169,6 @@ export const useVapiAssistants = (
         toast.error("Failed to fetch phone numbers from Vapi");
       } finally {
         setIsLoading(false);
-        setError(null);
       }
     };
 
