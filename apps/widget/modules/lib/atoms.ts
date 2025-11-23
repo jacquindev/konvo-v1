@@ -1,4 +1,5 @@
-import { Id } from "@repo/backend/_generated/dataModel";
+import { api } from "@repo/backend/_generated/api";
+import type { Doc, Id } from "@repo/backend/_generated/dataModel";
 import { atom } from "jotai";
 import { atomFamily, atomWithStorage } from "jotai/utils";
 import { CONTACT_SESSION_KEY } from "./constants";
@@ -23,3 +24,9 @@ export const contactSessionIdAtomFamily = atomFamily(
 );
 
 export const conversationIdAtom = atom<Id<"conversations"> | null>(null);
+export const widgetSettingsAtom = atom<Doc<"widgetSettings"> | null>(null);
+
+// Vapi Secrets for Voice Assistant
+export const vapiSecretsAtom =
+  atom<typeof api.public.secrets.getVapiSecret._returnType>(null);
+export const hasVapiSecretsAtom = atom((get) => get(vapiSecretsAtom) !== null);
