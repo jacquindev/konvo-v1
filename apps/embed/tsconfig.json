@@ -1,0 +1,4 @@
+{
+  "extends": "@repo/typescript-config/vite.json",
+  "include": ["embed.ts", "vite.config.ts", "vite-env.d.ts", "*.ts", "**/*.ts"]
+}
