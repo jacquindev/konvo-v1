@@ -81,7 +81,7 @@ export const WidgetSelectionScreen = () => {
       id: "phone",
       title: "Call Us",
       icon: PhoneIcon,
-      onClick: () => {},
+      onClick: () => setScreen("contact"),
       showWhen: () =>
         hasVapiSecrets && !!widgetSettings?.vapiSettings?.phoneNumber,
     },

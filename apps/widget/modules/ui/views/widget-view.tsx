@@ -5,6 +5,7 @@ import { WidgetScreen } from "@/modules/lib/types";
 import { useAtomValue } from "jotai";
 import { WidgetAuthScreen } from "../screens/widget-auth-screen";
 import { WidgetChatScreen } from "../screens/widget-chat-screen";
+import { WidgetContactScreen } from "../screens/widget-contact-screen";
 import { WidgetErrorScreen } from "../screens/widget-error-screen";
 import { WidgetInboxScreen } from "../screens/widget-inbox-screen";
 import { WidgetLoadingScreen } from "../screens/widget-loading-screen";
@@ -25,7 +26,7 @@ export const WidgetView = ({ organizationId }: WidgetViewProps) => {
       case "chat":
         return <WidgetChatScreen />;
       case "contact":
-        return <p>TODO: Contact</p>;
+        return <WidgetContactScreen />;
       case "error":
         return <WidgetErrorScreen />;
       case "inbox":
@@ -42,7 +43,7 @@ export const WidgetView = ({ organizationId }: WidgetViewProps) => {
   };
 
   return (
-    <main className="min-h-screen flex size-full flex-col overflow-hidden rounded-xl border shadow-md bg-background">
+    <main className="flex size-full flex-col overflow-hidden rounded-xl border shadow-md bg-background">
       {renderScreenComponent(screen)}
     </main>
   );
