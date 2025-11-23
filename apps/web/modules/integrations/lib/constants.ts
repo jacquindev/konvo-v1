@@ -23,7 +23,7 @@ export const INTEGRATIONS: Integration[] = [
   },
 ];
 
-export const HTML_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const JAVASCRIPT_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const NEXTJS_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const REACT_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const HTML_SCRIPT = `<script src="${process.env.NEXT_PUBLIC_WIDGET_URL}/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const JAVASCRIPT_SCRIPT = `<script src="${process.env.NEXT_PUBLIC_WIDGET_URL}/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const NEXTJS_SCRIPT = `<script src="${process.env.NEXT_PUBLIC_WIDGET_URL}/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const REACT_SCRIPT = `<script src="${process.env.NEXT_PUBLIC_WIDGET_URL}/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
