@@ -27,6 +27,7 @@ export const conversationIdAtom = atom<Id<"conversations"> | null>(null);
 export const widgetSettingsAtom = atom<Doc<"widgetSettings"> | null>(null);
 
 // Vapi Secrets for Voice Assistant
-export const vapiSecretsAtom =
-  atom<typeof api.public.secrets.getVapiSecret._returnType>(null);
+export const vapiSecretsAtom = atom<
+  typeof api.public.secrets.getVapiSecret._returnType | null
+>(null);
 export const hasVapiSecretsAtom = atom((get) => get(vapiSecretsAtom) !== null);

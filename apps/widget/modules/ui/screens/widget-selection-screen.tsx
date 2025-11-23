@@ -33,7 +33,8 @@ const SelectableItem = ({
     variant="muted"
     onClick={disabled ? undefined : onClick}
     className={cn(
-      "border border-border hover:bg-secondary/60 cursor-pointer hover:scale-102 transition-all duration-300",
+      "border border-border transition-all duration-300",
+      !disabled && "hover:bg-secondary/60 cursor-pointer hover:scale-102",
       disabled && "cursor-not-allowed opacity-50"
     )}
   >
