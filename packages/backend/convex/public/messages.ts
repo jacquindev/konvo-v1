@@ -52,26 +52,34 @@ export const create = action({
     const shouldTriggerAgent = conversation.status === "unresolved";
 
     if (shouldTriggerAgent) {
-      await supportAgent.generateText(
-        ctx,
-        {
-          threadId: args.threadId,
-          userId: conversation.contactSessionId,
-        },
-        {
-          prompt: args.prompt,
-          tools: {
-            resolveConversation,
-            escalateConversation,
-            search,
+      try {
+        await supportAgent.generateText(
+          ctx,
+          {
+            threadId: args.threadId,
+            userId: conversation.contactSessionId,
           },
-          experimental_telemetry: {
-            isEnabled: true,
-            recordInputs: true,
-            recordOutputs: true,
-          },
-        }
-      );
+          {
+            prompt: args.prompt,
+            tools: {
+              resolveConversation,
+              escalateConversation,
+              search,
+            },
+            experimental_telemetry: {
+              isEnabled: true,
+              recordInputs: true,
+              recordOutputs: true,
+            },
+          }
+        );
+      } catch (err) {
+        // Surface a clearer error to the caller so it's easier to debug
+        throw new ConvexError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Agent generation failed: ${String(err)}`,
+        });
+      }
     } else {
       await saveMessage(ctx, components.agent, {
         threadId: args.threadId,

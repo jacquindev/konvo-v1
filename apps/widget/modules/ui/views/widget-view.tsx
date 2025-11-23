@@ -9,6 +9,7 @@ import { WidgetErrorScreen } from "../screens/widget-error-screen";
 import { WidgetInboxScreen } from "../screens/widget-inbox-screen";
 import { WidgetLoadingScreen } from "../screens/widget-loading-screen";
 import { WidgetSelectionScreen } from "../screens/widget-selection-screen";
+import { WidgetVoiceScreen } from "../screens/widget-voice-screen";
 
 interface WidgetViewProps {
   organizationId: string | null;
@@ -34,7 +35,7 @@ export const WidgetView = ({ organizationId }: WidgetViewProps) => {
       case "selection":
         return <WidgetSelectionScreen />;
       case "voice":
-        return <p>TODO: Voice</p>;
+        return <WidgetVoiceScreen />;
       default:
         return null;
     }

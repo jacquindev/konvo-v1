@@ -15,6 +15,7 @@
     "@hookform/resolvers": "catalog:form",
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@vapi-ai/web": "^2.5.1",
     "convex": "catalog:convex",
     "date-fns": "catalog:",
     "jotai": "catalog:",

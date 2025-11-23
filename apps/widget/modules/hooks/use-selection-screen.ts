@@ -2,8 +2,10 @@ import {
   contactSessionIdAtomFamily,
   conversationIdAtom,
   errorMessageAtom,
+  hasVapiSecretsAtom,
   organizationIdAtom,
   screenAtom,
+  widgetSettingsAtom,
 } from "@/modules/lib/atoms";
 import { api } from "@repo/backend/_generated/api";
 import { useMutation } from "convex/react";
@@ -20,6 +22,8 @@ export const useSelectionScreen = () => {
   const contactSessionId = useAtomValue(
     contactSessionIdAtomFamily(organizationId || "")
   );
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
+  const hasVapiSecrets = useAtomValue(hasVapiSecretsAtom);
 
   const createConversation = useMutation(api.public.conversations.create);
   const [isCreating, setIsCreating] = useState(false);
@@ -59,7 +63,10 @@ export const useSelectionScreen = () => {
   };
 
   return {
+    setScreen,
     handleNewConversation,
     isCreating,
+    widgetSettings,
+    hasVapiSecrets,
   };
 };

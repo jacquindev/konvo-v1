@@ -20,6 +20,10 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
 } from "@repo/ui/components/ai-elements/prompt-input";
+import {
+  Suggestion,
+  Suggestions,
+} from "@repo/ui/components/ai-elements/suggestion";
 import { DicebearAvatar } from "@repo/ui/components/custom/dicebear-avatar";
 import { InfiniteScrollTrigger } from "@repo/ui/components/custom/infinite-scroll-trigger";
 import { ThemeToggle } from "@repo/ui/components/theme/toggle";
@@ -38,7 +42,8 @@ import { ArrowLeftIcon, MenuIcon } from "lucide-react";
 import { WidgetHeader } from "../components/widget-header";
 
 export const WidgetChatScreen = () => {
-  const { conversation, messages, form, onBack, onSubmit } = useChatScreen();
+  const { conversation, messages, suggestions, form, onBack, onSubmit } =
+    useChatScreen();
 
   const { canLoadMore, topElementRef, onLoadMore, isLoadingMore } =
     useInfiniteScroll({
@@ -112,7 +117,29 @@ export const WidgetChatScreen = () => {
         <ConversationScrollButton />
       </Conversation>
 
-      {/* TODO: Add suggestions */}
+      {toUIMessages(messages.results ?? [])?.length === 1 && (
+        <Suggestions className="p-2 pt-4">
+          {suggestions.map((suggestion) => {
+            if (!suggestion) return null;
+
+            return (
+              <Suggestion
+                suggestion={suggestion}
+                key={suggestion}
+                className="shadow-xs"
+                onClick={() => {
+                  form.setValue("message", suggestion, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                    shouldTouch: true,
+                  });
+                  form.handleSubmit(onSubmit)();
+                }}
+              />
+            );
+          })}
+        </Suggestions>
+      )}
 
       <Form {...form}>
         <PromptInput

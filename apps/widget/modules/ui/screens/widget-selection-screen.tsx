@@ -18,30 +18,72 @@ import {
 import { WidgetFooter } from "../components/widget-footer";
 import { WidgetHeader } from "../components/widget-header";
 
-export const WidgetSelectionScreen = () => {
-  const { handleNewConversation, isCreating } = useSelectionScreen();
+const SelectableItem = ({
+  icon: Icon,
+  title,
+  onClick,
+  disabled,
+}: {
+  icon: React.ElementType;
+  title: string;
+  onClick: () => void;
+  disabled?: boolean;
+}) => (
+  <Item
+    variant="muted"
+    onClick={disabled ? undefined : onClick}
+    className={cn(
+      "border border-border transition-all duration-300",
+      !disabled && "hover:bg-secondary/60 cursor-pointer hover:scale-102",
+      disabled && "cursor-not-allowed opacity-50"
+    )}
+  >
+    <ItemMedia variant="icon">
+      <Icon />
+    </ItemMedia>
 
-  const selectItems = [
+    <ItemContent>
+      <ItemTitle>{title}</ItemTitle>
+    </ItemContent>
+
+    <ItemActions>
+      <ChevronRightIcon className="text-muted-foreground size-4 shrink-0" />
+    </ItemActions>
+  </Item>
+);
+
+export const WidgetSelectionScreen = () => {
+  const {
+    setScreen,
+    handleNewConversation,
+    isCreating,
+    widgetSettings,
+    hasVapiSecrets,
+  } = useSelectionScreen();
+
+  const items = [
     {
-      id: "start-chat",
+      id: "chat",
       title: "Start Chat",
       icon: MessageSquareTextIcon,
-      action: handleNewConversation,
-      disabled: isCreating,
+      onClick: handleNewConversation,
+      showWhen: () => true,
     },
     {
-      id: "start-voice-call",
+      id: "voice",
       title: "Start Voice Call",
       icon: MicIcon,
-      action: () => {},
-      disabled: false,
+      onClick: () => setScreen("voice"),
+      showWhen: () =>
+        hasVapiSecrets && !!widgetSettings?.vapiSettings?.assistantId,
     },
     {
-      id: "call-us",
+      id: "phone",
       title: "Call Us",
       icon: PhoneIcon,
-      action: () => {},
-      disabled: false,
+      onClick: () => {},
+      showWhen: () =>
+        hasVapiSecrets && !!widgetSettings?.vapiSettings?.phoneNumber,
     },
   ];
 
@@ -54,28 +96,18 @@ export const WidgetSelectionScreen = () => {
         </div>
       </WidgetHeader>
 
-      <div className="flex flex-1 flex-col gap-y-4 p-4 overflow-y-auto">
-        {selectItems.map((item) => (
-          <Item
-            key={item.id}
-            variant="muted"
-            className={cn(
-              "border border-border hover:bg-secondary/60 cursor-pointer hover:scale-102 transition-all duration-300",
-              item.disabled && "cursor-not-allowed opacity-50"
-            )}
-            onClick={item.action}
-          >
-            <ItemMedia variant="icon">
-              <item.icon />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>{item.title}</ItemTitle>
-            </ItemContent>
-            <ItemActions>
-              <ChevronRightIcon className="text-muted-foreground size-4 shrink-0" />
-            </ItemActions>
-          </Item>
-        ))}
+      <div className="flex flex-1 flex-col gap-y-4 p-4 overflow-y-auto overflow-x-hidden">
+        {items
+          .filter((item) => item.showWhen())
+          .map((item) => (
+            <SelectableItem
+              key={item.id}
+              icon={item.icon}
+              title={item.title}
+              onClick={item.onClick}
+              disabled={isCreating}
+            />
+          ))}
       </div>
 
       <WidgetFooter />

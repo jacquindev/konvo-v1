@@ -8,6 +8,13 @@ import { supportAgent } from "../system/ai/agents/supportAgent";
 export const create = publicMutation({
   args: { organizationId: v.string() },
   async handler(ctx, args) {
+    const widgetSettings = await ctx.db
+      .query("widgetSettings")
+      .withIndex("by_organization_id", (q) =>
+        q.eq("organizationId", args.organizationId)
+      )
+      .unique();
+
     // This thread will be associated with that user and messages will be saved to the user's history
     const threadId = await createThread(ctx, components.agent, {
       userId: args.contactSessionId,
@@ -15,10 +22,11 @@ export const create = publicMutation({
 
     await supportAgent.saveMessage(ctx, {
       threadId,
+      userId: args.contactSessionId,
       message: {
         role: "assistant",
-        // TODO: Modify this to widget settings' initial message
-        content: "Hello, how can I help you today?",
+        content:
+          widgetSettings?.greetMessage || "Hello, how can I help you today?",
       },
     });
 
@@ -64,29 +72,34 @@ export const getMany = publicQuery({
       .order("desc")
       .paginate(args.paginationOpts);
 
-    /**
-      ** N+1 query pattern causing performance issues.
-      ** The code fetches the last message for each conversation individually within Promise.all, 
-      ** resulting in an N+1 query problem. For a page of 50 conversations, this executes 50 separate 
-      ** listMessages calls, which significantly degrades performance and increases execution costs.
-
-      ** Consider one of these approaches:
-      * Batch query: If supportAgent.listMessages supports batch operations, fetch messages for all threads in a single call
-      * Denormalization: Store the last message metadata directly in the conversations table and update it when new messages arrive
-      * Separate endpoint: Fetch conversation list first, then load messages on-demand (lazy loading) for the conversation the user opens
-      * Additionally, consider adding error handling so that if fetching messages for one conversation fails, the query can still return the other conversations with partial data.
-      */
     const conversationWithLastMessage = await Promise.all(
       conversations.page.map(async (conversation) => {
         let lastMessage: MessageDoc | null = null;
 
-        const messages = await supportAgent.listMessages(ctx, {
-          threadId: conversation.threadId,
-          paginationOpts: { numItems: 1, cursor: null },
-        });
+        // If there's no thread associated with this conversation, skip fetching messages.
+        if (!conversation.threadId) {
+          return {
+            _id: conversation._id,
+            _creationTime: conversation._creationTime,
+            status: conversation.status,
+            organizationId: conversation.organizationId,
+            threadId: conversation.threadId,
+            lastMessage,
+          };
+        }
 
-        if (messages.page.length > 0) {
-          lastMessage = messages.page[0] ?? null;
+        try {
+          const messages = await supportAgent.listMessages(ctx, {
+            threadId: conversation.threadId,
+            paginationOpts: { numItems: 1, cursor: null },
+          });
+
+          if (messages.page.length > 0) {
+            lastMessage = messages.page[0] ?? null;
+          }
+        } catch (err) {
+          // Swallow the error for this conversation so a single failing thread
+          // lookup doesn't break the whole page. lastMessage remains null.
         }
 
         return {

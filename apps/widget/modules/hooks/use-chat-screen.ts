@@ -3,6 +3,7 @@ import {
   conversationIdAtom,
   organizationIdAtom,
   screenAtom,
+  widgetSettingsAtom,
 } from "@/modules/lib/atoms";
 import { INITIAL_NUM_ITEMS } from "@/modules/lib/constants";
 import {
@@ -14,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@repo/backend/_generated/api";
 import { useAction, useQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 export const useChatScreen = () => {
@@ -30,6 +32,17 @@ export const useChatScreen = () => {
   const contactSessionId = useAtomValue(
     contactSessionIdAtomFamily(organizationId || "")
   );
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
+
+  const suggestions = useMemo(() => {
+    if (!widgetSettings) return [];
+
+    return Object.keys(widgetSettings.defaultSuggestions).map((key) => {
+      return widgetSettings.defaultSuggestions[
+        key as keyof typeof widgetSettings.defaultSuggestions
+      ];
+    });
+  }, [widgetSettings]);
 
   const conversation = useQuery(
     api.public.conversations.getOne,
@@ -70,6 +83,7 @@ export const useChatScreen = () => {
   return {
     conversation,
     messages,
+    suggestions,
     form,
     onBack,
     onSubmit,
