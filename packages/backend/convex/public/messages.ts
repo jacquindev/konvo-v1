@@ -1,7 +1,6 @@
-import { saveMessage } from "@convex-dev/agent";
 import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
-import { components, internal } from "../_generated/api";
+import { internal } from "../_generated/api";
 import { action } from "../_generated/server";
 import { publicQuery } from "../lib/publicUtils";
 import { supportAgent } from "../system/ai/agents/supportAgent";
@@ -47,9 +46,19 @@ export const create = action({
       });
     }
 
-    // TODO: Implement subscription check
+    // Refresh the user's session if they are within the threshold
+    await ctx.runMutation(internal.system.contactSessions.refresh, {
+      contactSessionId: args.contactSessionId,
+    });
 
-    const shouldTriggerAgent = conversation.status === "unresolved";
+    // Implement subscription check
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      { organizationId: conversation.organizationId }
+    );
+
+    const shouldTriggerAgent =
+      conversation.status === "unresolved" && subscription?.status === "active";
 
     if (shouldTriggerAgent) {
       try {
@@ -81,7 +90,7 @@ export const create = action({
         });
       }
     } else {
-      await saveMessage(ctx, components.agent, {
+      await supportAgent.saveMessage(ctx, {
         threadId: args.threadId,
         userId: conversation.contactSessionId,
         prompt: args.prompt,

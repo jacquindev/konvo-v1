@@ -79,58 +79,56 @@ export const PremiumFeatureOverlay = ({
   const router = useRouter();
 
   return (
-    <div className="mt-10">
-      <div className="size-full relative">
-        <div className="pointer-events-none select-none blur-[2px]">
-          {children}
-        </div>
+    <div className="size-full relative">
+      <div className="pointer-events-none select-none blur-[2px] overflow-hidden">
+        {children}
+      </div>
 
-        <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />
 
-        <div className="absolute inset-0 z-40 flex items-center justify-center p-4 top-15">
-          <Card className="w-full max-w-lg drop-shadow-md shadow-lg dark:bg-card/60 backdrop-blur-lg">
-            <CardHeader className="text-center">
-              <div className="flex items-center justify-center">
-                <div className="mb-2 inline-flex size-12 items-center justify-center rounded-full bg-accent">
-                  <GemIcon className="size-6 text-muted-foreground" />
-                </div>
+      <div className="fixed inset-0 z-40 flex items-center justify-center p-4 top-1/2 bottom-1/2 left-0 right-0">
+        <Card className="w-full max-w-lg drop-shadow-md shadow-lg dark:bg-card/60 backdrop-blur-lg">
+          <CardHeader className="text-center">
+            <div className="flex items-center justify-center">
+              <div className="mb-2 inline-flex size-12 items-center justify-center rounded-full bg-accent">
+                <GemIcon className="size-6 text-muted-foreground" />
               </div>
-              <CardTitle className="text-xl">Premium Access</CardTitle>
-              <CardDescription className="max-w-sm mx-auto">
-                You must have a Premium subscription to access this feature.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <ScrollArea className="space-y-2 h-[325px]">
-                {features.map((feature) => (
-                  <Item key={feature.label}>
-                    <ItemMedia variant="icon">
-                      <feature.icon className="shrink-0 text-muted-foreground size-4" />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>{feature.label}</ItemTitle>
-                      <ItemDescription className="text-sm leading-tight">
-                        {feature.description}
-                      </ItemDescription>
-                    </ItemContent>
-                  </Item>
-                ))}
-              </ScrollArea>
+            </div>
+            <CardTitle className="text-xl">Premium Access</CardTitle>
+            <CardDescription className="max-w-sm mx-auto">
+              You must have a Premium subscription to access this feature.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <ScrollArea className="space-y-2 h-[275px]">
+              {features.map((feature) => (
+                <Item key={feature.label}>
+                  <ItemMedia variant="icon">
+                    <feature.icon className="shrink-0 text-muted-foreground size-4" />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>{feature.label}</ItemTitle>
+                    <ItemDescription className="text-sm leading-tight">
+                      {feature.description}
+                    </ItemDescription>
+                  </ItemContent>
+                </Item>
+              ))}
+            </ScrollArea>
 
-              <Button
-                type="button"
-                size="lg"
-                className="w-full group transition-all duration-300"
-                onClick={() => {
-                  router.push("/billing");
-                }}
-              >
-                View Plans
-                <ArrowRight className="group-hover:translate-x-1" />
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            <Button
+              type="button"
+              size="lg"
+              className="w-full group transition-all duration-300"
+              onClick={() => {
+                router.push("/billing");
+              }}
+            >
+              View Plans
+              <ArrowRight className="group-hover:translate-x-1" />
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
