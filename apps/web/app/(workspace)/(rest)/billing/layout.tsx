@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => {
       <WorkspaceHeader
         icon={DollarSignIcon}
         title="Plans & Billing"
-        description=""
+        description="Manage your subscription, billing details, and plan upgrades in one place."
       />
 
       {children}

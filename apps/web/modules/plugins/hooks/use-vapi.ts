@@ -1,6 +1,8 @@
 import type {
   UseVapiAssistants,
   UseVapiPhoneNumbers,
+  VapiAssistants,
+  VapiPhoneNumbers,
 } from "@/modules/plugins/lib/types";
 import {
   VapiConnectSchema,
@@ -10,10 +12,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@repo/backend/_generated/api";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { ConvexError } from "convex/values";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { usePluginData } from "./use-plugin-data";
 
 export const useVapiView = () => {
   const vapiPlugin = useQuery(api.private.plugins.getOne, { service: "vapi" });
@@ -103,15 +104,76 @@ export const useVapiDisconnect = (onOpenChange: (open: boolean) => void) => {
   };
 };
 
-export const useVapiPhoneNumbers = (): UseVapiPhoneNumbers => {
+export const useVapiPhoneNumbers = (
+  hasVapiPlugin: boolean
+): UseVapiPhoneNumbers => {
+  const [data, setData] = useState<VapiPhoneNumbers>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
   const getPhoneNumbers = useAction(api.private.vapi.getPhoneNumbers);
-  return usePluginData(
-    getPhoneNumbers,
-    "Failed to fetch phone numbers from Vapi"
-  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!hasVapiPlugin) {
+        setIsLoading(false);
+        setData([]);
+        setError(null);
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        const result = await getPhoneNumbers();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+        toast.error("Failed to fetch assistants from Vapi");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [getPhoneNumbers, hasVapiPlugin]);
+
+  return { data, isLoading, error };
 };
 
-export const useVapiAssistants = (): UseVapiAssistants => {
+export const useVapiAssistants = (
+  hasVapiPlugin: boolean
+): UseVapiAssistants => {
+  const [data, setData] = useState<VapiAssistants>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
   const getAssistants = useAction(api.private.vapi.getAssistants);
-  return usePluginData(getAssistants, "Failed to fetch assistants from Vapi");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!hasVapiPlugin) {
+        setIsLoading(false);
+        setData([]);
+        setError(null);
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        const result = await getAssistants();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+        toast.error("Failed to fetch phone numbers from Vapi");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [getAssistants, hasVapiPlugin]);
+
+  return { data, isLoading, error };
 };

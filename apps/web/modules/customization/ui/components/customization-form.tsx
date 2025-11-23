@@ -53,10 +53,11 @@ export const CustomizationForm = ({
   hasVapiPlugin,
 }: CustomizationFormProps) => {
   const { form, onSubmit, isSubmitting } = useCustomizationForm(initialData);
+
   const { data: assistants, isLoading: loadingAssistants } =
-    useVapiAssistants();
+    useVapiAssistants(hasVapiPlugin);
   const { data: phoneNumbers, isLoading: loadingPhoneNumbers } =
-    useVapiPhoneNumbers();
+    useVapiPhoneNumbers(hasVapiPlugin);
 
   const suggestions = [
     {
