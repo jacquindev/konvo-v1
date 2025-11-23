@@ -7,7 +7,11 @@ type Props = { children: React.ReactNode };
 const Layout = ({ children }: Props) => {
   return (
     <>
-      <WorkspaceHeader icon={ZapIcon} title="Integrations" description="" />
+      <WorkspaceHeader
+        icon={ZapIcon}
+        title="Integrations"
+        description="Easily connect Konvo to your website or app with ready-to-use embed scripts."
+      />
 
       {children}
     </>
