@@ -18,6 +18,7 @@
     "@repo/backend": "workspace:*",
     "@repo/ui": "workspace:*",
     "@sentry/nextjs": "^10.26.0",
+    "bowser": "^2.12.1",
     "convex": "catalog:convex",
     "countries-and-timezones": "^3.8.0",
     "date-fns": "catalog:",
