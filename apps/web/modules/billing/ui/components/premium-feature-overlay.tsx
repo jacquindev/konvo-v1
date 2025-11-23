@@ -86,7 +86,7 @@ export const PremiumFeatureOverlay = ({
 
       <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />
 
-      <div className="fixed inset-0 z-40 flex items-center justify-center p-4 top-1/2 bottom-1/2 left-0 right-0">
+      <div className="fixed inset-0 z-40 top-1/2 bottom-1/2 items-center justify-center flex p-4 left-0 right-0">
         <Card className="w-full max-w-lg drop-shadow-md shadow-lg dark:bg-card/60 backdrop-blur-lg">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center">
