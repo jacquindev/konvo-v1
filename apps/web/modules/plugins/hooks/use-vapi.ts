@@ -103,15 +103,35 @@ export const useVapiDisconnect = (onOpenChange: (open: boolean) => void) => {
   };
 };
 
-export const useVapiPhoneNumbers = (): UseVapiPhoneNumbers => {
+export const useVapiPhoneNumbers = (
+  hasVapiPlugin: boolean
+): UseVapiPhoneNumbers => {
   const getPhoneNumbers = useAction(api.private.vapi.getPhoneNumbers);
-  return usePluginData(
+  const vapi = usePluginData(
     getPhoneNumbers,
     "Failed to fetch phone numbers from Vapi"
   );
+
+  if (hasVapiPlugin) {
+    return vapi;
+  } else {
+    return { data: [], isLoading: false, error: null };
+  }
 };
 
-export const useVapiAssistants = (): UseVapiAssistants => {
+export const useVapiAssistants = (
+  hasVapiPlugin: boolean
+): UseVapiAssistants => {
   const getAssistants = useAction(api.private.vapi.getAssistants);
-  return usePluginData(getAssistants, "Failed to fetch assistants from Vapi");
+
+  const vapi = usePluginData(
+    getAssistants,
+    "Failed to fetch assistants from Vapi"
+  );
+
+  if (hasVapiPlugin) {
+    return vapi;
+  } else {
+    return { data: [], isLoading: false, error: null };
+  }
 };

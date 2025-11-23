@@ -25,6 +25,7 @@
     "ai": "catalog:ai",
     "convex": "catalog:convex",
     "convex-helpers": "catalog:convex",
+    "svix": "^1.81.0",
     "zod": "catalog:form"
   }
 }

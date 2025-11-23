@@ -14,7 +14,7 @@ import { BotIcon, CheckCircleIcon, PhoneIcon, XCircleIcon } from "lucide-react";
 // ---------------------------------------
 
 export const VapiPhoneNumbersTab = () => {
-  const { data: phoneNumbers, isLoading, error } = useVapiPhoneNumbers();
+  const { data: phoneNumbers, isLoading, error } = useVapiPhoneNumbers(true);
 
   if (error) {
     return <div>Error phone numbers: {error.message}</div>;
@@ -66,7 +66,7 @@ export const VapiPhoneNumbersTab = () => {
 // ---------------------------------------
 
 export const VapiAssistantsTab = () => {
-  const { data: assistants, isLoading, error } = useVapiAssistants();
+  const { data: assistants, isLoading, error } = useVapiAssistants(true);
 
   if (error) {
     return <div>Error loading assistants: {error.message}</div>;
