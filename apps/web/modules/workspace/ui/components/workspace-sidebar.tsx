@@ -28,7 +28,7 @@ export const WorkspaceSidebar = ({
   const { user } = useUser();
 
   return (
-    <Sidebar collapsible="icon" className="group" {...props}>
+    <Sidebar collapsible="icon" className="group border-none" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

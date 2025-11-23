@@ -10,6 +10,7 @@
 
 import type * as http from "../http.js";
 import type * as lib_clerkClient from "../lib/clerkClient.js";
+import type * as lib_constants from "../lib/constants.js";
 import type * as lib_convertEntryToPublicFile from "../lib/convertEntryToPublicFile.js";
 import type * as lib_extractTextContent from "../lib/extractTextContent.js";
 import type * as lib_openai from "../lib/openai.js";
@@ -52,6 +53,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   http: typeof http;
   "lib/clerkClient": typeof lib_clerkClient;
+  "lib/constants": typeof lib_constants;
   "lib/convertEntryToPublicFile": typeof lib_convertEntryToPublicFile;
   "lib/extractTextContent": typeof lib_extractTextContent;
   "lib/openai": typeof lib_openai;

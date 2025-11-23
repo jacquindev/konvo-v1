@@ -6,6 +6,7 @@ import {
 } from "@convex-dev/rag";
 import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
+import { internal } from "../_generated/api";
 import type { Id } from "../_generated/dataModel";
 import {
   convertEntryToPublicFile,
@@ -27,6 +28,18 @@ export const addFile = privateAction({
     category: v.optional(v.string()),
   },
   async handler(ctx, args) {
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      { organizationId: ctx.orgId }
+    );
+
+    if (subscription?.status !== "active") {
+      throw new ConvexError({
+        code: "BAD_REQUEST",
+        message: "Active subscription is required for this feature",
+      });
+    }
+
     const { bytes, filename, category, mimeType } = args;
 
     const fileType =
@@ -84,6 +97,18 @@ export const deleteFile = privateMutation({
     entryId: vEntryId,
   },
   async handler(ctx, args) {
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      { organizationId: ctx.orgId }
+    );
+
+    if (subscription?.status !== "active") {
+      throw new ConvexError({
+        code: "BAD_REQUEST",
+        message: "Active subscription is required for this feature",
+      });
+    }
+
     const namespace = await rag.getNamespace(ctx, { namespace: ctx.orgId });
 
     if (!namespace) {

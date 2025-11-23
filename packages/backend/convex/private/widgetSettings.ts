@@ -1,4 +1,4 @@
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 import { privateMutation, privateQuery } from "../lib/privateUtils";
 
 export const getOne = privateQuery({
@@ -33,6 +33,20 @@ export const upsert = privateMutation({
     if (existingSettings) {
       await ctx.db.patch(existingSettings._id, args);
     } else {
+      const subscription = await ctx.db
+        .query("subscriptions")
+        .withIndex("by_organization_id", (q) =>
+          q.eq("organizationId", ctx.orgId)
+        )
+        .unique();
+
+      if (subscription?.status !== "active") {
+        throw new ConvexError({
+          code: "BAD_REQUEST",
+          message: "Active subscription is required for this feature",
+        });
+      }
+
       await ctx.db.insert("widgetSettings", {
         organizationId: ctx.orgId,
         ...args,

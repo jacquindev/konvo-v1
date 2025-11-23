@@ -2,7 +2,7 @@ import { saveMessage } from "@convex-dev/agent";
 import { generateText } from "ai";
 import { paginationOptsValidator } from "convex/server";
 import { ConvexError, v } from "convex/values";
-import { components } from "../_generated/api";
+import { components, internal } from "../_generated/api";
 import { openai } from "../lib/openai";
 import {
   privateAction,
@@ -94,6 +94,20 @@ export const enhanceResponse = privateAction({
     prompt: v.string(),
   },
   async handler(ctx, args) {
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      {
+        organizationId: ctx.orgId,
+      }
+    );
+
+    if (subscription?.status !== "active") {
+      throw new ConvexError({
+        code: "BAD_REQUEST",
+        message: "Active subscription is required for this feature",
+      });
+    }
+
     const response = await generateText({
       model: openai("gpt-4o-mini"),
       messages: [

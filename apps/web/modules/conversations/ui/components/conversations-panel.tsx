@@ -127,7 +127,6 @@ export const ConversationsPanel = () => {
                 <Link
                   key={conversation._id}
                   href={`/conversations/${conversation._id}`}
-                  prefetch
                   className={cn(
                     "group relative flex cursor-pointer items-start gap-3 border-b p-3 py-5 text-sm leading-tight hover:bg-accent hover:text-accent-foreground",
                     !!isActive && "bg-accent text-accent-foreground"
