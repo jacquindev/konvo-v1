@@ -14,7 +14,7 @@ export const WORKSPACE_SIDEBAR_ITEMS = [
     items: [{ title: "Dashboard", icon: HomeIcon, url: "/dashboard" }],
   },
   {
-    label: "Customer Support",
+    label: "Main",
     items: [
       { title: "Conversations", icon: InboxIcon, url: "/conversations" },
       { title: "Knowledge Base", icon: LibraryBigIcon, url: "/knowledge-base" },

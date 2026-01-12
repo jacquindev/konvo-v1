@@ -1,5 +1,9 @@
 "use client";
 
+import React from "react";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@repo/ui/lib/utils";
 import { ThemeToggle } from "@repo/ui/components/theme/toggle";
 import {
   Breadcrumb,
@@ -10,9 +14,7 @@ import {
 } from "@repo/ui/components/ui/breadcrumb";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { SidebarTrigger } from "@repo/ui/components/ui/sidebar";
-import { cn } from "@repo/ui/lib/utils";
-import { usePathname } from "next/navigation";
-import React from "react";
+
 import { WORKSPACE_BREADCRUMB_MAP } from "../../lib/constants";
 import { formatSegment } from "../../lib/utils";
 
@@ -32,7 +34,7 @@ export const WorkspaceBreadcrumb = () => {
   });
 
   return (
-    <header className="flex bg-sidebar justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b shadow-xs">
+    <header className="flex bg-background/80 backdrop-blur-xl justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b shadow-xs">
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1 text-muted-foreground hover:text-foreground" />
         <Separator

@@ -22,6 +22,7 @@
     "convex": "catalog:convex",
     "countries-and-timezones": "^3.8.0",
     "date-fns": "catalog:",
+    "embla-carousel-autoplay": "^8.6.0",
     "jotai": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
@@ -30,6 +31,7 @@
     "react-dom": "catalog:react19",
     "react-hook-form": "catalog:form",
     "sonner": "catalog:",
+    "unicornstudio-react": "^2.0.1",
     "zod": "catalog:form"
   },
   "devDependencies": {

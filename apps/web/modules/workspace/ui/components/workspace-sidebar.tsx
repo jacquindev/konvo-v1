@@ -1,6 +1,11 @@
 "use client";
 
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { OrganizationSwitcher, UserButton, useUser } from "@clerk/nextjs";
+
+import { cn } from "@repo/ui/lib/utils";
 import {
   Sidebar,
   SidebarContent,
@@ -13,17 +18,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarSeparator,
+  useSidebar,
 } from "@repo/ui/components/ui/sidebar";
-import { cn } from "@repo/ui/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+
 import { WORKSPACE_SIDEBAR_ITEMS } from "../../lib/constants";
 
 export const WorkspaceSidebar = ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
   const pathname = usePathname();
+  const { open } = useSidebar();
 
   const { user } = useUser();
 
@@ -54,6 +59,7 @@ export const WorkspaceSidebar = ({
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+        <SidebarSeparator className="mx-auto" />
       </SidebarHeader>
 
       <SidebarContent>
@@ -109,6 +115,7 @@ export const WorkspaceSidebar = ({
       </SidebarContent>
 
       <SidebarFooter>
+        <SidebarSeparator className="mx-auto" />
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
