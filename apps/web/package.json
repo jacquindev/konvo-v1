@@ -26,7 +26,7 @@
     "jotai": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
-    "next": "catalog:",
+    "next": "15.5.8",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-hook-form": "catalog:form",
